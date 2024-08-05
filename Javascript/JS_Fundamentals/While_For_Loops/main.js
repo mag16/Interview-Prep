@@ -117,3 +117,50 @@ If we don’t want to do anything in the current iteration and would like to for
 break/continue support labels before the loop. A label is the only way for break/continue to escape a nested loop to go to an outer one.
 
 */
+
+/*
+TASKS
+
+Last Loop Value
+
+What is the last loop value alerted by the following code? Why?
+*/
+let x = 3;
+
+while (x) {
+  alert( x-- );
+} //3,2,1
+
+alert(x--); // shows 3, decreases x to 2
+
+alert(x--) // shows 2, decreases x to 1
+
+alert(x--) // shows 1, decreases x to 0
+
+/*
+Which values does the loop show?
+
+*/
+//prefix form ++i
+let y = 0;
+while (++y < 5) alert(y) //1,2,3,4 ...no 5 because (5 < 5) is false
+
+//postfix form i++
+let z = 0;
+while (z++ < 5) console.log(z); // 1,2,3,4,5 
+
+/*
+The first value is again z = 1. The postfix form of i++ increments i and then returns the old value, 
+so the comparison z++ < 5 will use z = 0 (contrary to ++z < 5).
+
+But the alert call is separate. It’s another statement which executes after the increment and the comparison.
+ So it gets the current z = 1.
+
+Then follow 2, 3, 4…
+
+Let’s stop on z = 4. The prefix form ++i would increment it and use 5 in the comparison. 
+But here we have the postfix form i++. So it increments i to 5, but returns the old value. 
+Hence the comparison is actually while(4 < 5) – true, and the control goes on to alert.
+
+The value i = 5 is the last one, because on the next step while(5 < 5) is false.
+*/
