@@ -91,3 +91,45 @@ Algorithmic Complexity: This optimization helps in reducing the overall time com
 To summarize, using Math.sqrt(limit) in the loop ensures that you are only performing the necessary computations to mark non-prime numbers, making the algorithm more efficient.
 
 */
+
+/* Time and Space Complexity 
+
+Time Complexity
+Initialization: Creating and initializing the sieve array takes 
+O(n) time, where 𝑛 is the limit.
+
+Marking Non-Primes:
+
+The outer loop runs from 𝑖 = 2 to Square Root n. This loop executes 𝑂(square root 𝑛) times.
+Inside the outer loop, the inner loop marks multiples of i as non-prime. For each prime 
+i, the inner loop runs from 𝑖 ** 2 to n in steps of i. The number of iterations of the inner loop across all prime i is 
+𝑂(𝑛loglog𝑛).
+
+The overall time complexity is 𝑂(𝑛loglog𝑛). 
+
+This is because:
+* The cost of marking multiples of each prime i is proportional to 𝑛/i.
+​
+* Summing up the cost over all primes gives the harmonic series, which is 
+𝑂(𝑛loglog𝑛).
+
+Space Complexity
+Array Storage:
+
+The sieve array has 𝑛+1 elements, which requires O(n) space.
+
+Primes Array:
+
+The space required for storing the resulting prime numbers is 𝑂(𝑛/log𝑛), but in the worst case, it can be considered 
+𝑂(𝑛) because the number of primes less than 𝑛 is approximately 𝑛/log𝑛, and this is an upper bound.
+
+Overall, the space complexity is 𝑂(𝑛).
+
+Summary
+Time Complexity: 
+𝑂(𝑛 log log 𝑛)
+
+Space Complexity: 𝑂(𝑛).
+
+This makes the Sieve of Eratosthenes very efficient for finding all prime numbers up to a large limit, especially in terms of time complexity.
+*/
