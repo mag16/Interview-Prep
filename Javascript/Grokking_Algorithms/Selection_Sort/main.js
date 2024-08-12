@@ -114,15 +114,16 @@ additional memory usage, which can be useful in environments with limited resour
 
 function selection_sort(arr){
     for (let i = 0; i < arr.length; i++){
-
+        // Step 1: assume the minimum element is at the current index 'i'
         let min = i;
-
+        // Step 2: find the smallest element in the remaining unsorted part of the array
         for (let j = i + 1; j < arr.length; j++){
             if (arr [j] < arr[min]){
-                min = j;
+                min = j; // Update 'min' if a smaller element is found
             }
         }
 
+        // Step 3:  Swap the found smallest element with the element at index 'i'.
         let temp = arr[i];
         arr[i] = arr[min];
         arr[min] = temp;
