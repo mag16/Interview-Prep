@@ -1,29 +1,25 @@
+function binarySearch(list, item) {
+  let low = 0;
+  let high = list.length - 1;
 
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2); // Ensure mid is an integer
+    let guess = list[mid];
 
-function binarySearch(list, item){
-
-    let low = 0;
-    let high = list.length - 1;
-
-    while (low <= high){
-        let mid = Math.floor((low + high) / 2);// Ensure mid is an integer
-        let guess = list[mid];
-    
-    if(guess === item){
-        return mid;// Found the item
-
+    if (guess === item) {
+      return mid; // Found the item
     }
-    if(guess > item){
-        high = mid - 1;// Search the left half
+    if (guess > item) {
+      high = mid - 1; // Search the left half
     } else {
-        low = mid + 1; // Search the right half
+      low = mid + 1; // Search the right half
     }
+  }
+
+  return null; // Item not found
 }
 
-    return null; // Item not found
-}
-
-console.log(binarySearch([1,3,5,7,9],7));
+console.log(binarySearch([1, 3, 5, 7, 9], 7));
 
 /* 
 Time Complexity Analysis
