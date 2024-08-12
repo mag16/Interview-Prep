@@ -1,30 +1,34 @@
-// P.35
+// P.35 on Grokking Algorithms book
 
-function findSmallest(arr){
+function findSmallest(arr) {
     let smallest = arr[0];
-    let smallest_index = 0;
+    let smallestIndex = 0;
 
-    for(let i = 1; i < arr.length; i++){
-        if (arr[i] < smallest){
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < smallest) {
             smallest = arr[i];
-            smallest_index = i;
+            smallestIndex = i;
         }
     }
-return smallest_index;
+    return smallestIndex;
 }
 
-function selectionSort(arr){
+function selectionSort(arr) {
     let newArr = [];
-
-    for (let i = 0; i < arr.length; i++){
-        let smallest = findSmallest(arr);
-        newArr.push(arr.splice(smallest,1)[0]); // removes the smallest element and pushes it to new array
+    
+    // Continue until the original array is empty
+    while (arr.length > 0) {
+        let smallestIndex = findSmallest(arr);
+        // Remove the smallest element from the original array and push it to newArr
+        newArr.push(arr.splice(smallestIndex, 1)[0]);
     }
 
     return newArr;
 }
 
-console.log(selectionSort([5,3,6,2,10]))
+console.log(selectionSort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])); // Should output a sorted array
+console.log(selectionSort([10, 3, 7, 8, 4, 6])); // Should output a sorted array
+
 
 /* 
 array.splice(start, deleteCount, item1, item2, ...)
@@ -106,7 +110,25 @@ large lists compared to more advanced algorithms like quicksort, mergesort, or h
 which have better average-case time complexities. Its main advantage is its simplicity and minimal 
 additional memory usage, which can be useful in environments with limited resources.
 
-
-
-
 */
+
+function selection_sort(arr){
+    for (let i = 0; i < arr.length; i++){
+
+        let min = i;
+
+        for (let j = i + 1; j < arr.length; j++){
+            if (arr [j] < arr[min]){
+                min = j;
+            }
+        }
+
+        let temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
+    }
+
+    return arr;
+}
+
+console.log(selection_sort([5,4,3,2,1]));
