@@ -18,7 +18,7 @@ function selectionSort(arr){
 
     for (let i = 0; i < arr.length; i++){
         let smallest = findSmallest(arr);
-        newArr.push(arr.splice(smallest,1)[0]);
+        newArr.push(arr.splice(smallest,1)[0]); // removes the smallest element and pushes it to new array
     }
 
     return newArr;
