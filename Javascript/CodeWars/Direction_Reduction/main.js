@@ -57,7 +57,7 @@ if you want to translate, please ask before translating.
 function dirReduc(arr){
     // ...
     let stack = [];
-    let opposites = {"NORTH": "SOUTH", "SOUTH":"NORTH", "WEST": "EAST", "EAST": "WEST"};
+    let opposites = {"NORTH":"SOUTH", "SOUTH":"NORTH", "WEST":"EAST", "EAST":"WEST"};
 
     for(let i = 0; i < arr.length; i++){
         if(stack.length === 0 || stack[stack.length - 1] !== opposites[arr[i]]){
