@@ -69,6 +69,21 @@ function dirReduc(arr){
     return stack;
 }
 
+/* 
+Explanation:
+
+Stack: This keeps track of the directions that haven't been canceled out.
+
+Opposite Directions: The opposite object maps each direction to its opposite.
+
+Loop: For each direction in the input array:
+If the stack is empty or the current direction doesn't cancel out the last direction on the stack,
+ push it onto the stack.
+ 
+Otherwise, pop the last direction off the stack since they cancel each other out.
+
+*/
+
 console.log(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"])); 
 // Output: ["WEST"]
 
