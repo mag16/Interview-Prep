@@ -78,6 +78,4 @@ Each subsequent pass shortens the range of the inner loop because the elements a
 
 Summary:
 arr.length - 1 - i ensures that the inner loop does not access out-of-bounds elements and skips over the parts of the array that are already sorted, making the sorting process more efficient.
-
-
 */
