@@ -79,3 +79,25 @@ Each subsequent pass shortens the range of the inner loop because the elements a
 Summary:
 arr.length - 1 - i ensures that the inner loop does not access out-of-bounds elements and skips over the parts of the array that are already sorted, making the sorting process more efficient.
 */
+
+/* 
+Time Complexity : O(n^2)
+nested for loops
+
+
+
+Space Complexity:O(1)
+
+Why is the Space Complexity 
+𝑂(1)?
+In-Place Sorting: Bubble sort is an in-place sorting algorithm, meaning that it sorts the array without requiring any additional space proportional to the input size. The sorting is done by swapping elements within the original array.
+
+No Extra Space for Large Inputs: The algorithm only uses a few extra variables (like temp for swapping and loop counters i and j), and the amount of memory these variables use does not depend on the size of the input array 
+n.
+
+Summary:
+Space Complexity: 
+𝑂(1)
+Reason: Bubble sort requires only a constant amount of extra space, regardless of the input size, making it an in-place sorting algorithm with very low space requirements.
+
+*/
