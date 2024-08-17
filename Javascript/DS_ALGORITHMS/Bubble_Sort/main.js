@@ -90,14 +90,18 @@ Space Complexity:O(1)
 
 Why is the Space Complexity 
 𝑂(1)?
-In-Place Sorting: Bubble sort is an in-place sorting algorithm, meaning that it sorts the array without requiring any additional space proportional to the input size. The sorting is done by swapping elements within the original array.
+In-Place Sorting: Bubble sort is an in-place sorting algorithm,
+ meaning that it sorts the array without requiring any additional space proportional 
+ to the input size. The sorting is done by swapping elements within the original array.
 
-No Extra Space for Large Inputs: The algorithm only uses a few extra variables (like temp for swapping and loop counters i and j), and the amount of memory these variables use does not depend on the size of the input array 
-n.
+No Extra Space for Large Inputs: The algorithm only uses a few extra variables 
+(like temp for swapping and loop counters i and j), and the amount of memory these variables 
+use does not depend on the size of the input array n.
 
 Summary:
 Space Complexity: 
 𝑂(1)
-Reason: Bubble sort requires only a constant amount of extra space, regardless of the input size, making it an in-place sorting algorithm with very low space requirements.
+Reason: Bubble sort requires only a constant amount of extra space, regardless of the input size, 
+making it an in-place sorting algorithm with very low space requirements.
 
 */
