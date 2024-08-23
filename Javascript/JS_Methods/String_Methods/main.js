@@ -52,3 +52,28 @@ indexOf(searchString)
 indexOf(searchString, position)
 
 */
+
+//Using indexOf() to count occurrences of a string.
+const string = "To be, or not to be, that is the question.";
+let count = 0;
+let position = string.indexOf("e");
+
+while (position !== -1) {
+  count++;
+  position = string.indexOf("e", position + 1);
+}
+
+console.log(count); // 4
+
+/*
+* string.indexOf("e"):
+
+This method call searches the string from the beginning and returns the index
+of the first occurrence of the letter "e". If "e" is found, it returns the index 
+of that character. If not, it returns -1.
+
+*position + 1:
+
+After finding an "e" at a certain index (position), you want to search for the next "e" in the string. If you were to call string.indexOf("e", position) without adding 1, the search would start at the current position of the found "e", which would just return the same index.
+By using position + 1, you're telling the indexOf method to start searching from the character immediately after the current "e". This avoids finding the same "e" again and instead finds the next occurrence in the string.
+*/
