@@ -58,6 +58,7 @@ const string = "To be, or not to be, that is the question.";
 let count = 0;
 let position = string.indexOf("e");
 
+//keep looping as long as thee character 'e' is found in the string
 while (position !== -1) {
   count++;
   position = string.indexOf("e", position + 1);
