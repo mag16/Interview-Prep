@@ -42,3 +42,30 @@ function bouncingBall(h,  bounce,  window) {
       return -1;
     }
   }
+
+  /* 
+Problem Recap:
+In this kata, you need to determine how many times a ball will pass by a window after being dropped from a height h, bouncing with a bounce factor bounce, and with the window positioned at height window.
+
+Steps to Solve:
+Initial Drop:
+
+The ball is dropped from height h and falls past the window for the first time.
+Subsequent Bounces:
+
+After the ball hits the ground, it bounces back up to h * bounce.
+If this height is still above the window, the ball will pass the window again (upwards and then downwards).
+Counting Passes:
+
+Each time the ball passes the window (both on the way down and after a bounce), you count it.
+Pseudocode:
+Initial Check:
+
+Ensure the conditions are met: h > 0, 0 < bounce < 1, and window < h.
+If not, return -1.
+Count Passes:
+
+Initialize a counter for the number of passes.
+While the height after bouncing is greater than the window height, increment the counter twice (once for falling down, once for bouncing up).
+
+*/
