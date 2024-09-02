@@ -59,7 +59,7 @@ function declareWinner(fighter1, fighter2, firstAttacker) {
   
   console.log(declareWinner(fighter1, fighter2, "Lew")); // Outputs: "Lew"
 
-  /* 
+/* 
   
 Determine First Attacker:
 let attacker = fighter1.name === firstAttacker ? fighter1 : fighter2;
