@@ -33,9 +33,9 @@ class Fighter {
       this.health = health;
       this.damagePerAttack = damagePerAttack;
     }
-  }
+}
   
-  function declareWinner(fighter1, fighter2, firstAttacker) {
+function declareWinner(fighter1, fighter2, firstAttacker) {
     let attacker = fighter1.name === firstAttacker ? fighter1 : fighter2;
     let defender = fighter1.name === firstAttacker ? fighter2 : fighter1;
     
