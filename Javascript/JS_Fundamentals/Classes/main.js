@@ -15,11 +15,12 @@ class Rectangle {
     return this.calcArea();
     }
 
-    //Method
+    // Method
     calcArea() {
         return this.height * this.width;
     }
 
+    // Generator Function
     *getSides() {
         yield this.height;
         yield this.width;
