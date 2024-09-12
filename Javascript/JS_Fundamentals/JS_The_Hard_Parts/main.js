@@ -95,8 +95,12 @@ function outer() {
     incrementCounter();
 }
 const myNewFunction = outer();  
-myNewFunction();
-myNewFunction();
+myNewFunction(); // 1
+myNewFunction(); // 2
+
+const anotherFunction = outer();
+anotherFunction();  // 1
+anotherFunction(); // 2
 
 // Where you define your functions determines what data is has access to when you call it.
 
@@ -111,4 +115,18 @@ What can we call this "Backpack"?
 The backpack (or closure) of live data is attached incrementCounter (thenm to myNewFunction)
 thorough a hidden property known as [[scope]] which persists when the inner function is returned out.
 
+*/
+
+/*
+Closure gives our functions persistent memories and entirely
+new toolkit for writing professional code.
+
+* Helper functions: Everyday professional helper functions like "once" and "memoize"
+
+* Iterators and generators: which use lexical scoping and closure to achieve the most contemporary
+patterns for handling data in javascript
+
+* Module pattern: Preserve state for the life of an application without polluting the global namespace
+
+* Asynchronous JavaScript: Callbacks and Promises rely on closure to persist state in an asynchronous environment
 */
