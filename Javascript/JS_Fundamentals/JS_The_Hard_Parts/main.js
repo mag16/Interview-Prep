@@ -153,3 +153,42 @@ We need to add some new components:
 - Promises
 - Event loop, Calback/Tasj queue and micro task queue
 */
+
+/*
+Promises, Web APIS, the callback and Microtask Queues
+and Event Loop enable:
+
+Non-blocking applications: this means we dont have to wait in the single
+thread and dont block further code from runing
+
+However long it takes: We cannot predict when our browser features work will finish so
+we let JS handle automatically running the function on its completion
+
+Web Applications:  Asynchronous JS is the backbone of the modern web letting us build
+fast 'non blocking' applications.
+
+*/
+
+/*
+Objects - store functions with the assiciated data!
+This is the principle of encapsulation - and it going to transform how we can reason about our code
+*/
+
+const user1 = {
+    name : "Marco",
+    score: 5,
+    increment: function() { user1.score++; }
+};
+
+// Creating user2 with dot notation.
+
+user1.increment(); // user1.score --> 6
+
+const user2 = {}; // create an empty object
+
+// assign properties to that object
+user2.name = "Miguel";
+user2.score = 6;
+user2.increment = function() {
+    user2.score++;
+};
