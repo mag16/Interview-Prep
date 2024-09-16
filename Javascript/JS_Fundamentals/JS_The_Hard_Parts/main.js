@@ -130,3 +130,26 @@ patterns for handling data in javascript
 
 * Asynchronous JavaScript: Callbacks and Promises rely on closure to persist state in an asynchronous environment
 */
+
+/*
+CLOSURE Exercises at:  http://csbin.io/closures
+*/
+
+
+
+
+
+
+/*
+JavaScript is not enough - We need new pieces (some which arent JS at all)
+
+Our core JS engine has 3 main parts:
+- Thread of Execution
+- Memory/variable environmment
+- Call stack
+
+We need to add some new components:
+- Web Browser APIs/Node background APIS
+- Promises
+- Event loop, Calback/Tasj queue and micro task queue
+*/
