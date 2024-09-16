@@ -192,3 +192,31 @@ user2.score = 6;
 user2.increment = function() {
     user2.score++;
 };
+
+// Creating user3 using Object.create
+
+const user3 = Object.create(null);
+
+user3.name = "Eva";
+user3.score = 9;
+user3.increment = function() {
+    user3.score++
+};
+
+// Our code is getting repetitive, were breaking our DRY principle.  And suppose we have millions of users!! What can we do?
+
+// Solution 1.  Generate objects using a function
+
+function userCreator(name, score) {
+    const newUser = {};
+    newUser.name = name;
+    newUser.score = score;
+    newUser.increment = function() {
+        newUser.score++
+    };
+    return newUser;
+};
+
+const user01 = userCreator("Will", 3);
+const user02 = userCreator("Tim", 5);
+user01.increment();
