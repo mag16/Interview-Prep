@@ -220,3 +220,33 @@ function userCreator(name, score) {
 const user01 = userCreator("Will", 3);
 const user02 = userCreator("Tim", 5);
 user01.increment();
+
+/*
+Solution 2: Using the prototype chain
+Store the increment function in just one object and have the interpreter, if it
+doesnt find the function on user1, look up to that object to check if its there
+
+link user1 and functionStore so the interpreter, on not finding .increment, makes sure to check
+up in functionStore where it would find ot.
+
+Make the link with Object.create() technique
+*/
+
+function userCreator(name, score) {
+    const newUser = Object.create(userFunctionStore);
+    newUser.name = name;
+    newUser.score = score;
+    newUser.increment = function() {
+        newUser.score++
+    };
+    return newUser;
+};
+
+const userFunctionStore = {
+    increment: function(){ this.score++ ; },
+    login: function() { console.log("Logged in");}
+};
+
+const user001 = userCreator("Will", 3);
+const user002 = userCreator("Tim", 5);
+user001.increment();
