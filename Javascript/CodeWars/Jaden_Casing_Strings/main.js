@@ -19,3 +19,29 @@ String.prototype.toJadenCase = function() {
     }
     return words.join(" ");
 };
+
+/*
+The + words[i].slice(1) part is necessary to ensure that after capitalizing the first letter of each word, the rest of the word remains intact and is appended back.
+
+Why You Need It:
+words[i][0].toUpperCase(): This part capitalizes only the first letter of the word. However, if you only use this, you'd lose the rest of the word.
+
+For example, "hello" would become "H", but the rest of the word ("ello") would be missing.
+words[i].slice(1): This extracts the rest of the word, starting from the second character (index 1 onwards), and keeps it unchanged.
+
+slice(1) ensures that "hello" becomes "ello".
+The Full Operation:
+words[i][0].toUpperCase(): Capitalizes the first letter.
+"hello" → "H"
++ words[i].slice(1): Appends the rest of the word.
+"H" + "ello" → "Hello"
+Example:
+
+let word = "hello";
+let capitalized = word[0].toUpperCase() + word.slice(1);  // "Hello"
+console.log(capitalized);  // Output: "Hello"
+
+Without slice(1), you'd only capitalize the first letter but would lose the rest of the 
+word. This ensures the first letter is capitalized while the remaining part stays the same.
+
+*/
