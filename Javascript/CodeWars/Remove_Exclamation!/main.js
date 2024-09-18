@@ -12,7 +12,6 @@ Examples
 */
 
 function remove (string) {
-  
     for (let i = 0; i < string.length; i++){
   
       if (string[string.length - 1] === "!"){
@@ -20,6 +19,11 @@ function remove (string) {
       }
    
     }
-    
     return string;
+  }
+
+
+  //solution with endsWith
+  function remove2 (string) {    
+    return string.endsWith("!") ? string.slice(0,-1) : string;
   }
