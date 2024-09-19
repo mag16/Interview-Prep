@@ -32,7 +32,7 @@ function dnaStrand(dna){
       }   
     }
     return newDna.join("");
-  }
+}
 
 /* 
 const chai = require("chai");
