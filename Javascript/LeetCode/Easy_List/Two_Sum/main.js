@@ -29,7 +29,33 @@ Constraints:
 -109 <= target <= 109
 */
 
-var twoSum = function(nums, target) {
+let twoSum = function(nums, target) {
+    let target_nums = [];
+   
+       for(let i = 0; i < nums.length;i++){
+           for(let j = i + 1; j < nums.length; j++) {
+               if(nums[i] + nums[j] === target) {
+               target_nums.push(i, j)
+               }
+           }
+        }
+                                                                              // let result = target_sums;
+   return target_nums;
+};
 
-    
+// More optimized solution
+
+let twoSumWhash = function(arr, target) {
+    let hashNums = new Map();
+
+    for(let i = 0; i < arr.length; i++) {
+        let complement = target - arr[i];
+
+        if(hashNums.has(complement)){
+           // Return the indices of the complement and the current number
+            return [hashNums.get(complement), i]; // Use get to retrieve the index of the complement
+        } else {
+            hashNums.set(arr[i], i); // Store the number with its index
+        }
+    }
 }
