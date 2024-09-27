@@ -251,3 +251,31 @@ const makeChangeBruteForce = (value, i) => {
 }
 
 console.log('Make Change Brute Force:',makeChangeBruteForce(10));
+
+console.log('~~~~~~~ MAKE CHANGE MEMOIZED ALGORITHM ~~~~~~~~')
+
+const cache = {};
+const coinsMemo = [10, 6, 1];
+
+const makeChangeMemoized = (c) => {
+    // Return the value if its in the cache
+    if (cache[c]) return cache[c];
+
+    let minCoins = -1;
+
+    // Find the best coin
+    coinsMemo.forEach((coin)=> {
+        if (c - coin >= 0) {
+            let currMinCoins = makeChangeMemoized(c - coin);
+            if(minCoins === -1 || currMinCoins < minCoins) {
+                minCoins = currMinCoins;
+            }
+        }
+    });
+
+    // Save the value into the cache
+    cache[c] = minCoins + 1;
+    return cache[c];
+}
+
+console.log('Make Change Memoized Function:',makeChangeMemoized(10));
