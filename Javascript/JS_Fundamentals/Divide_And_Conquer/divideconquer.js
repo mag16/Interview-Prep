@@ -214,14 +214,14 @@ const makeChange = (coins, amount) => {
     let coinTotal = 0;
     let i = 0;
     while(amount > 0) {
-        if(coins[i] <= amount) {
+        if(amount > 0 && i < coins.length) {
             amount -= coins[i];
             coinTotal++;
         }else {
             i++;
         }
     }
-    return coinTotal;
+    return amount === 0 ? coinTotal : -1;
 }
 
 console.log('Make change divisible by 5',makeChange([5,10,25], 50)); // 25,25
@@ -234,14 +234,14 @@ console.log('~~~~~~~ BRUTE FORCE MAKE CHANGE ALGORITHM ~~~~~~~~')
 let recursionCounter = 0;
 const coins = [10, 6, 1];
 
-const makeChangeBF = (value, i) => {
+const makeChangeBruteForce = (value, i) => {
     recursionCounter++;
     console.log(`${recursionCounter}: calling ${value} at ${i}`);
     if (value === 0) return 0;
     let minCoins;
     coins.forEach((coin)=> {
         if (value - coin >= 0) {
-            let currMinCoins = makeChange(value - coin);
+            let currMinCoins = makeChangeBruteForce(value - coin);
             if(minCoins === undefined || currMinCoins < minCoins) {
                 minCoins = currMinCoins;
             }
@@ -250,4 +250,4 @@ const makeChangeBF = (value, i) => {
     return minCoins + 1;
 }
 
-console.log('Make Change Brute Force:',makeChangeBF(10));
+console.log('Make Change Brute Force:',makeChangeBruteForce(10));
