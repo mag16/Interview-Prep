@@ -154,6 +154,8 @@ hash.set("age", 35);
 console.log('Hash table 2:',hash.get("name")); // Marco
 
 hash.set("mane", "Jane");
+hash.set("age", 25);
+hash.set("career", "doctor");
 console.log('Hash Table 2 at current key:', hash.get("mane"));
 
 
