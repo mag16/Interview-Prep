@@ -47,7 +47,7 @@ function validParenthesis(s) {
     let store = [];
 
     for (let i = 0; i < s.length; i++) {
-        if(s[i] === "(" || s[i] === "{" || s[i] === "[") {
+        if(chars[s[i]]) {
             store.push(s[i]);
         } else {
             let last = store.pop();
