@@ -30,51 +30,43 @@ str.toUpperCase(); // "HELLO WORLD"
 
 "   Hello World    ".trim(); // "Hello World"
 
-
-//indexOf()
-const paragraph = "I think Ruth's dog is cuter than your dog!";
-
-const searchTerm = 'dog';
-const indexOfFirst = paragraph.indexOf(searchTerm);
-
-console.log(`The index of the first "${searchTerm}" is ${indexOfFirst}`);
-// Expected output: "The index of the first "dog" is 15"
-
-console.log(
-  `The index of the second "${searchTerm}" is ${paragraph.indexOf(
-    searchTerm,
-    indexOfFirst + 1,
-  )}`,
-);
-/* Expected output: "The index of the second "dog" is 38"
-
-indexOf(searchString)
-indexOf(searchString, position)
-
-*/
-
-//Using indexOf() to count occurrences of a string.
-const string = "To be, or not to be, that is the question.";
-let count = 0;
-let position = string.indexOf("e");
-
-//keep looping as long as the character 'e' is found in the string
-while (position !== -1) {
-  count++;
-  position = string.indexOf("e", position + 1);
-}
-
-console.log(count); // 4
-
 /*
-* string.indexOf("e"):
+String behavior to look out for
 
-This method call searches the string from the beginning and returns the index
-of the first occurrence of the letter "e". If "e" is found, it returns the index 
-of that character. If not, it returns -1.
-
-*position + 1:
-
-After finding an "e" at a certain index (position), you want to search for the next "e" in the string. If you were to call string.indexOf("e", position) without adding 1, the search would start at the current position of the found "e", which would just return the same index.
-By using position + 1, you're telling the indexOf method to start searching from the character immediately after the current "e". This avoids finding the same "e" again and instead finds the next occurrence in the string.
+Because string is a primitive, attempting to assign a value to a string's length property has no observable effect,
+ and will throw in strict mode.
 */
+
+const myString = "bluebells";
+
+myString.length = 4;
+console.log(myString); // "bluebells"
+console.log(myString.length); // 9  strings are immutable
+
+// String .at()
+const sentence = 'The quick brown fox jumps over the lazy dog.';
+
+let index = 5;
+
+console.log(`An index of ${index} returns the character ${sentence.at(index)}`);
+// Expected output: "An index of 5 returns the character u"
+
+index = -4;
+
+console.log(`An index of ${index} returns the character ${sentence.at(index)}`);
+// Expected output: "An index of -4 returns the character d"
+
+// comparing 3 ways to get the penultimate character of a String
+const myString = "Every green bus drives fast.";
+
+// Using length property and charAt() method
+const lengthWay = myString.charAt(myString.length - 2);
+console.log(lengthWay); // 't'
+
+// Using slice() method
+const sliceWay = myString.slice(-2, -1);
+console.log(sliceWay); // 't'
+
+// Using at() method
+const atWay = myString.at(-2);
+console.log(atWay); // 't'
