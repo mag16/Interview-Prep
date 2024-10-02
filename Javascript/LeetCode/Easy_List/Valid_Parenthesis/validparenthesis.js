@@ -38,26 +38,29 @@ Output: true
 
 function validParenthesis(s) {
 
-    let chars = {
-        "(" : ")",
-        "{" : "}",
-        "[" : "]"
-    }
-
     let store = [];
 
     for (let i = 0; i < s.length; i++) {
-        if(chars[s[i]]) {
+        if(s[i] === "(" || s[i] === "{" || s[i] === "[") {
             store.push(s[i]);
+        } else if (store.length === 0) {
+            return false;    
         } else {
-            let last = store.pop();
-            if (chars[last] === s[i]) {
-                return false;
+            let c = store[store.length - 1];
+            store.pop();
+            if ((s[i] === ")" && c === "(") || 
+                (s[i] === "}" && c === "{") || 
+                (s[i] === "]" && c === "[")) {
+                    return true;
+                }  
+                    else {
+                        return false;
+                }
             }
-        }  
-    }
 
-    return store.length === 0;
+        }  
+
+    if (store.length === 0) return true;
 }
 
 console.log(validParenthesis("()"))
