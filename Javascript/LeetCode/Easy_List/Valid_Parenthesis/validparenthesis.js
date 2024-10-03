@@ -36,6 +36,8 @@ Output: true
 
 */
 
+console.log('~~~~~~~~~~~~~~~~ validParenthesis() ~~~~~~~~~~~');
+
 function validParenthesis(s) {
     let store = [];
 
@@ -60,3 +62,29 @@ function validParenthesis(s) {
 console.log(validParenthesis("()"));
 console.log(validParenthesis("()[]{}"));
 console.log(validParenthesis("[()}"));
+
+console.log('~~~~~~~~~~~~~~~~ isParenthesisValid() ~~~~~~~~~~~');
+
+function isParenthesisValid(s) {
+    let store = [];
+
+    for (let i = 0; i < s.length; i++) {
+        if(s.charAt(i) == '(') {
+            store.push(')')
+        } else if(s.charAt(i) == '{') {
+            store.push('}')
+        } else if(s.charAt(i) == '[') {
+            store.push(']')
+        } else if(store.length === 0 || store.pop() !== s.charAt(i)) {
+            return false;
+        }
+    }
+    // if the store is empty then all parenthesis were matched correctly. 
+    return store.length === 0;
+}
+
+console.log(isParenthesisValid("()")); // true
+console.log(isParenthesisValid("()[]{}")); // true
+console.log(isParenthesisValid("(]")); // false
+console.log(isParenthesisValid("([)]")); // false
+console.log(isParenthesisValid("{[]}")); // true
