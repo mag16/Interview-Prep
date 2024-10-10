@@ -8,6 +8,16 @@
 4. Write procedures for each
 case that brings you closer to the base case(s)
 
+~~~~~~~~~~~~~~~~~~~~ Recursion Reads ~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://www.freecodecamp.org/news/recursion-is-not-hard-858a48830d83/?form=MG0AV3
+
+https://web.mit.edu/6.005/www/fa15/classes/10-recursion/
+
+https://www.topcoder.com/community/data-science/data-science-tutorials/an-introduction-to-recursion-part-2/
+
+https://softwareengineering.stackexchange.com/questions/25052/in-plain-english-what-is-recursion
+
+
 */
 
 let callMyself = function() {
@@ -90,3 +100,69 @@ const factorial = memoize (
 
 console.log(factorial(5)); // calculated
 console.log(factorial(6)); // calculated for 6 and cached for 5.
+
+const fibonacci = function(num) {
+    if(num <= 1) {
+        return num;
+    } else {
+        return fibonacci(num - 1) + fibonacci(num - 2);
+    }
+}
+
+console.log('fibonacci sequence = ',fibonacci(6));
+
+const reverseString = function(str) {
+    if (str.length === 0) return '';
+
+    return str[str.length - 1] + reverseString(str. substr(0 , str.length - 1))
+}
+
+console.log('Reverse a string : ',reverseString('hit me in the head'));
+
+console.log('~~~~~~~~~~~~~~~~~ QUICKSORT ~~~~~~~~~~~~~~~~~~~~~');
+
+const quickSort = function(arr, lo, hi) {
+    if (lo === undefined) lo = 0;
+    if (hi === undefined) hi = arr.length - 1;
+
+    if (lo < hi) {
+        // partition the array
+        let p = partition(arr, lo, hi);
+        console.log('partition from, ' + lo + ' to ' + hi + ' => partition ' + p);
+        //sort subarrays
+        quickSort(arr, lo, p - 1);
+        quickSort(arr, p + 1, hi);
+    }
+     // for initial call, return a sorted array
+    if (lo === 0 && hi === arr.length - 1) return arr;
+
+};
+
+const partition = function(arr, lo, hi) {
+   // choose last element as pivot  
+   let pivot = arr[hi];  // keep track of index to put pivot at
+   let pivotLocation = lo; 
+
+   // loop through subarray and if element <= pivot, place element before pivot  
+   for (let i = lo; i < hi; i++) {    
+       if (arr[i] <= pivot) {      
+           swap(arr, pivotLocation, i);      
+           pivotLocation++;    
+       }  
+   }  
+
+   swap(arr, pivotLocation, hi);  
+   return pivotLocation;
+};
+
+const swap = function(arr, index1, index2) {
+    if (index1 === index2) return;
+    let temp = arr[index1];
+    arr[index1] = arr[index2];
+    arr[index2] = temp;
+
+    console.log('swapped ' + arr[index1] + ', ' + arr[index2] + '  in  ', arr); 
+    return arr;
+}
+
+console.log('QuickSort : ', quickSort([1, 4, 3, 56, 9, 8, 7, 5]));
