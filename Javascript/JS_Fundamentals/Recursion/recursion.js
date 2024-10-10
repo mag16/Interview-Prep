@@ -169,3 +169,22 @@ const swap = function(arr, index1, index2) {
 }
 
 console.log('QuickSort : ', quickSort([1, 4, 3, 56, 9, 8, 7, 5]));
+
+/*
+TO DO:
+
+Once these simple problems have been shown AND re-implemented in tutorials, you can give slightly more difficult (but very classic) exercises:
+
+The Fibonacci numbers,
+The Greatest Common Divisor,
+The 8-Queens problem,
+The Towers of Hanoi game,
+And if you have a graphical environment (or can provide code stubs for it or for a terminal output or they can manage that already), things like:
+Koch's Snow Flake Fractal,
+Sierpinski's Triangle.
+And for for practical examples, consider writing:
+a tree traversal algorithm,
+a simple mathematical expression parser,
+a minesweeper game.
+
+*/
