@@ -17,6 +17,9 @@ https://www.topcoder.com/community/data-science/data-science-tutorials/an-introd
 
 https://softwareengineering.stackexchange.com/questions/25052/in-plain-english-what-is-recursion
 
+https://www.youtube.com/watch?v=IJDJ0kBx2LM&t=657s
+
+https://programiz.pro/course/learn-recursion-with-python
 
 */
 
@@ -52,7 +55,7 @@ function computeFactorial(num) {
     return result;
 }
 
-console.log(computeFactorial());
+console.log('return computeFactorial: ',computeFactorial());
 
 // Task: rewrite this function so that it uses a loop rather than recursion
 
@@ -66,7 +69,7 @@ function joinElements(array, joinString) {
     return resultSoFar + array[array.length - 1];
 }
 
-console.log(joinElements(['s','cr', 't cod', ' :) :)'], 'e'));
+console.log(joinElements('JoinElements: ',['s','cr', 't cod', ' :) :)'], 'e'));
 
 
 // memoized factorial function
