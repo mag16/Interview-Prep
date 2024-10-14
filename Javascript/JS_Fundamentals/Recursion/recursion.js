@@ -203,3 +203,4 @@ console.log(GreatestCommonDivisor(8,12));
 console.log(GreatestCommonDivisor(15,20));
 console.log(GreatestCommonDivisor(16,24));
 console.log(GreatestCommonDivisor(1180,482));
+console.log(GreatestCommonDivisor(48,18));
