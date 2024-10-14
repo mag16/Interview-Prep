@@ -189,7 +189,8 @@ a minesweeper game.
 
 */
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~ Greatest Common Divisor ~~~~~~~~~~~~~~~')
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~ Greatest Common Divisor ~~~~~~~~~~~~~~~');
+
 const GreatestCommonDivisor = function(a, b) {
     if (b == 0) {
         return a;
@@ -204,3 +205,18 @@ console.log(GreatestCommonDivisor(15,20));
 console.log(GreatestCommonDivisor(16,24));
 console.log(GreatestCommonDivisor(1180,482));
 console.log(GreatestCommonDivisor(48,18));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~ Tower of Hanoi ~~~~~~~~~~~~~~~');
+
+const towerOfHanoi = function(n, from_rod, to_rod, aux_rod) {
+    if(n == 0) return;
+
+    towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);
+
+    console.log("Move disk " + n + " from rod " + from_rod + " to rod " + to_rod + " <br/> =>");
+
+    towerOfHanoi(n - 1, aux_rod, to_rod, from_rod);
+}
+
+let N = 3;
+towerOfHanoi(N, "A", "C", "B");
