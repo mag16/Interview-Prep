@@ -188,3 +188,18 @@ a simple mathematical expression parser,
 a minesweeper game.
 
 */
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~ Greatest Common Divisor ~~~~~~~~~~~~~~~')
+const GreatestCommonDivisor = function(a, b) {
+    if (b == 0) {
+        return a;
+    }
+
+    return `The Greatest Common Divisor between ${a} and ${b} is : ${GreatestCommonDivisor(b, a % b)}`;
+
+}
+
+console.log(GreatestCommonDivisor(8,12));
+console.log(GreatestCommonDivisor(15,20));
+console.log(GreatestCommonDivisor(16,24));
+console.log(GreatestCommonDivisor(1180,482));
