@@ -220,3 +220,82 @@ const towerOfHanoi = function(n, from_rod, to_rod, aux_rod) {
 
 let N = 3;
 towerOfHanoi(N, "A", "C", "B");
+
+/*
+Dynamic Programming (Free Code Camp)
+
+https://youtu.be/oBt53YbR9Kk
+
+Dynamic Programming
+
+*/
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Dynamic Programming ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+const foo = (n) => {
+    if(n <= 1) return n; // base case
+    return foo(n - 1); // recursive call
+};
+
+const bar = (n) => {
+    if (n <= 1) return n; // b
+    return bar(n - 2); // recursive call
+};
+
+console.log('foo call: ',foo(8));
+console.log('bar call: ',bar(8));
+
+// Memoized Fibonacci sequence
+
+const slowFib = (n) => {
+    if (n <= 2) return 1;
+    return slowFib(n - 1) + slowFib(n - 2);
+};
+
+
+// O(n)time / O(n) space
+const fib = (n, memo = {}) => {
+    if (n in memo) return memo[n]; // if the key inside the object
+    if (n <= 2) return 1; // base case
+    memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+
+    return memo[n];
+};
+
+console.log('memoized fibonacci for the 8th number in sequence: ',fib(8));
+console.log('memoized fibonacci for the 6th number in sequence: ',fib(6));
+
+// [../gridTraveler.png]
+// Grid traveler
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Grid Traveler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+const gridTraveler = (m, n) => {
+    if (m === 1 && n === 1) return 1; // Base Case 1: If you're at a 1×1 grid, there's exactly one way to be there (you're already at the end).
+    if (m === 0 || n === 0) return 0; // Base Case 2: If either dimension is 0, there's no grid to travel, so zero ways to travel.
+
+    return gridTraveler(m - 1, n) + gridTraveler(m, n - 1); // This sums the number of ways to travel if you move down 𝑚 −1,𝑛) and if you move right (𝑚,𝑛−1).
+};
+
+console.log('slow Grid Traveler (1,1): ', gridTraveler(1,1));
+console.log('slow Grid Traveler (2,3): ', gridTraveler(2,3));
+console.log('slow Grid Traveler (3,2): ', gridTraveler(3,2));
+console.log('slow Grid Traveler (3,3): ', gridTraveler(1,1));
+// console.log('slow Grid Traveler, this one takes long (18,18): ', gridTraveler(18,18));
+
+const gridTravelerMemoized = (m, n, memo = {}) => {
+    const key = m + ',' + n; // separator needed to
+    if (key in memo) return memo[key];
+    if (m === 1 && n === 1) return 1; // Base Case 1: If you're at a 1×1 grid, there's exactly one way to be there (you're already at the end).
+    if (m === 0 || n === 0) return 0; // Base Case 2: If either dimension is 0, there's no grid to travel, so zero ways to travel.
+
+    memo[key] = gridTravelerMemoized(m - 1, n, memo) + gridTravelerMemoized(m, n - 1, memo); // This sums the number of ways to travel if you move down 𝑚 − 1,𝑛) and if you move right (𝑚,𝑛−1).
+
+    return memo[key];
+};
+
+console.log('memoized Grid Traveler (1,1): ', gridTravelerMemoized(1,1));
+console.log('memoized Grid Traveler (2,3): ', gridTravelerMemoized(2,3));
+console.log('memoized Grid Traveler (3,2): ', gridTravelerMemoized(3,2));
+console.log('memoized Grid Traveler (3,3): ', gridTravelerMemoized(1,1));
+console.log('memoized Grid Traveler, this one was taking long previously (18,18): ', gridTravelerMemoized(18,18));
