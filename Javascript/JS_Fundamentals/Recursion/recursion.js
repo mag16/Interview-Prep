@@ -230,7 +230,7 @@ Dynamic Programming
 
 */
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Dynamic Programming ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Dynamic Programming ~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
 const foo = (n) => {
     if(n <= 1) return n; // base case
@@ -265,10 +265,11 @@ const fib = (n, memo = {}) => {
 console.log('memoized fibonacci for the 8th number in sequence: ',fib(8));
 console.log('memoized fibonacci for the 6th number in sequence: ',fib(6));
 
-// [../gridTraveler.png]
+// [../Images/gridTraveler.png]
 // Grid traveler
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Grid Traveler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+// 0(2^n+m) time complexity, 0(n + m) space complexity
 
 const gridTraveler = (m, n) => {
     if (m === 1 && n === 1) return 1; // Base Case 1: If you're at a 1×1 grid, there's exactly one way to be there (you're already at the end).
@@ -283,8 +284,11 @@ console.log('slow Grid Traveler (3,2): ', gridTraveler(3,2));
 console.log('slow Grid Traveler (3,3): ', gridTraveler(1,1));
 // console.log('slow Grid Traveler, this one takes long (18,18): ', gridTraveler(18,18));
 
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Memoized Grid Traveler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+// 0(m * n) time complexity, 0(n + m) space complexity
 const gridTravelerMemoized = (m, n, memo = {}) => {
-    const key = m + ',' + n; // separator needed to
+    const key = m + ',' + n; // separator needed to combining m and n with a comma creates a unique string identifier for each position on the grid. For example, 3,4 and 4,3 would be different keys. Without a separator, 34 and 43 would be mixed up and lead to incorrect results.
     if (key in memo) return memo[key];
     if (m === 1 && n === 1) return 1; // Base Case 1: If you're at a 1×1 grid, there's exactly one way to be there (you're already at the end).
     if (m === 0 || n === 0) return 0; // Base Case 2: If either dimension is 0, there's no grid to travel, so zero ways to travel.
