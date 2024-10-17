@@ -463,7 +463,7 @@ console.log('MemohowSum for 7, [2, 4]: ', MemohowSum(7, [2, 4]));
 console.log('MemohowSum for 8, [2, 3, 5]: ', MemohowSum(8, [2, 3, 5]));
 console.log('(takes a bit to compute) howSum for 300, [7, 14]: ', MemohowSum( 300, [7, 14]));
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ How Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Best Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
 
 /* 
 bestSum
@@ -518,7 +518,7 @@ console.log('bestSum for 8, [1, 4, 5]: ', bestSum(8, [1, 4, 5])); //[4, 4]
 // console.log('bestSum for 100, [1, 2, 5, 25]: ', bestSum(100, [1, 2, 5, 25])); //[25, 25, 25, 25]
 
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~ Memoized How Sum ~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Memoized Best Sum ~~~~~~~~~~~~~~~~~~~~~');
 
 /*
 Memoized Soln:
@@ -558,3 +558,124 @@ console.log('bestSumMemo for 7, [5, 3, 4, 7]: ', bestSumMemo(7, [5, 3, 4, 7])); 
 console.log('bestSumMemo for 8, [2, 3, 5]: ', bestSumMemo(8, [2, 3, 5])); //[3, 5]
 console.log('bestSumMemo for 8, [1, 4, 5]: ', bestSumMemo(8, [1, 4, 5])); //[4, 4]
 console.log('bestSumMemo for 100, [1, 2, 5, 25]: ', bestSumMemo(100, [1, 2, 5, 25])); //[25, 25, 25, 25]
+
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ CanConstruct WordBank ~~~~~~~~~~~~~~~~~~~~~');
+
+/* 
+canConstruct
+Write a function `canConstruct(target, wordBank)` that accepts a 
+target string and an array of strings.
+
+The function should return a boolean indicating wether or not the `target` can be constructed
+by concatenating elements in the `wordBank` array
+
+ex:  canConstruct(abcdef, [ab, abc, cd, def, abcd]) --> true
+
+     canConstruct(skateboard, [ bo, rd, ate, sk, boar ]) --> false
+                    ska + t + ?
+                    sk + ate + boar + ?
+                    ak + ate + bo + ?
+
+
+
+
+m = target.length
+n = wordbank.length
+
+Brute Force Soln:
+time: O(n^m * m)
+space: O(m^2)
+
+*/
+
+const canConstruct = (target, wordBank) => {
+    if (target === "") return true;
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) === 0) {
+            const suffix = target.slice(word.length);
+            if(canConstruct(suffix, wordBank)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+};
+
+console.log("canConstruct abcdef", ["ab", "abc", "cd", "def", "abcd"] , canConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // true
+console.log("canConstruct skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , canConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // false
+console.log("canConstruct enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], canConstruct("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // true
+//console.log(canConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // false
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Memoized CanConstruct WordBank ~~~~~~~~~~~~~~~~~~~~~');
+
+/* 
+Memoized CanConstruct
+
+m = target.length
+n = wordbank.length
+
+Memoized Soln:
+time: O(n * m^2)
+space: O(m^2)
+
+
+[../Images/Javascript/JS_Fundamentals/canConstructMemo.png]
+
+*/
+
+const canConstructMemo = (target, wordBank, memo = {}) => {
+    if(target in memo) return memo[target];
+    if (target === "") return true;
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) === 0) {
+            const suffix = target.slice(word.length);
+            if(canConstructMemo(suffix, wordBank, memo)) {
+                memo[target] = true;
+                return true;
+            }
+        }
+    }
+    memo[target] = false;
+    return false;
+};
+
+console.log("canConstructMemoized abcdef", ["ab", "abc", "cd", "def", "abcd"] , canConstructMemo("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // true
+console.log("canConstructMemoized skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , canConstructMemo("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // false
+console.log("canConstructMemoized enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], canConstructMemo("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // true
+console.log(canConstructMemo("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // false
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ CountConstruct WordBank ~~~~~~~~~~~~~~~~~~~~~');
+
+/* 
+countConstruct
+Write a function `canConstruct(target, wordBank)` that accepts a 
+target string and an array of strings.
+
+The function should return a boolean indicating wether or not the `target` can be constructed
+by concatenating elements in the `wordBank` array
+
+ex:  canConstruct(abcdef, [ab, abc, cd, def, abcd]) --> true
+
+     canConstruct(skateboard, [ bo, rd, ate, sk, boar ]) --> false
+                    ska + t + ?
+                    sk + ate + boar + ?
+                    ak + ate + bo + ?
+
+
+
+
+m = target.length
+n = wordbank.length
+
+Brute Force Soln:
+time: O()
+space: O()
+
+*/
