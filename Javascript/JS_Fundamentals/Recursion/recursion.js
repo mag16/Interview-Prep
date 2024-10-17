@@ -397,7 +397,7 @@ to the targeSum, then return null.
 
 if there are multiple combinations, return any single one
 
-[/Interview-Prep/Images/howSum.png]
+[../howSum.png]
 
 m = target sum
 n = numbers.length
@@ -475,6 +475,10 @@ that add up to exactly the targetSum.
 
 if there is a tie for the shortest combination you may return any one of the shortest.
 
+ex:  bestSum(8, [2, 3, 5]) --> [3, 5]
+[2, 2, 2, 2]
+[2, 3, 3]
+[3, 5] ---> shortest combination
 
 
 m = target sum
@@ -483,4 +487,31 @@ n = numbers.length
 time: 
 space: 
 
+
+[../bestSum.png]
 */
+
+const bestSum = (targetSum, numbers) => {
+    if (targetSum === 0) return [];
+    if (targetSum < 0) return null;
+
+    let shortestCombination = null;
+
+    for (let num of numbers) {
+        const remainder = targetSum - num;
+        const remainderCombination = bestSum(remainder, numbers);
+        if (remainderCombination !== null) {
+            const combination = [ ...remainderCombination, num ];
+            if (shortestCombination === null || combination.length < shortestCombination.length) {
+                shortestCombination = combination;
+            }
+        }
+    }
+
+    return shortestCombination;
+}
+
+console.log('bestSum for 7, [5, 3, 4, 7]: ', bestSum(7, [5, 3, 4, 7])); //[7]
+console.log('bestSum for 8, [2, 3, 5]: ', bestSum(8, [2, 3, 5])); //[3, 5]
+console.log('bestSum for 8, [1, 4, 5]: ', bestSum(8, [1, 4, 5])); //[4, 4]
+// console.log('bestSum for 100, [1, 2, 5, 25]: ', bestSum(100, [1, 2, 5, 25])); //[25, 25, 25, 25]
