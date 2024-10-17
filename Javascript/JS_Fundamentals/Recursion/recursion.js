@@ -655,18 +655,20 @@ console.log('~~~~~~~~~~~~~~~~~~~~~~~ CountConstruct WordBank ~~~~~~~~~~~~~~~~~~~
 
 /* 
 countConstruct
-Write a function `canConstruct(target, wordBank)` that accepts a 
+Write a function `countConstruct(target, wordBank)` that accepts a 
 target string and an array of strings.
 
-The function should return a boolean indicating wether or not the `target` can be constructed
-by concatenating elements in the `wordBank` array
+The function should return the number of ways that the `target` can be constructed
+by concatenating elements in the `wordBank` array.
 
-ex:  canConstruct(abcdef, [ab, abc, cd, def, abcd]) --> true
+You may reuse elements of `wordBank` as many times as needed.
 
-     canConstruct(skateboard, [ bo, rd, ate, sk, boar ]) --> false
-                    ska + t + ?
-                    sk + ate + boar + ?
-                    ak + ate + bo + ?
+ex:  canConstruct(abcdef, [ab, abc, cd, def, abcd]) --> 1
+
+     canConstruct(purple, [ purp, p, ur, le, purpl ]) --> 2
+                    purp + le 
+                    purpl + e 
+                    
 
 
 
@@ -675,7 +677,66 @@ m = target.length
 n = wordbank.length
 
 Brute Force Soln:
-time: O()
-space: O()
+time: O(n^m * m)
+space: O(m^2)
 
 */
+
+const countConstruct = (target, wordBank) => {
+    if (target === "") return 1;
+
+    let totalCount = 0;
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) === 0) {
+            const numWaysForRest = countConstruct(target.slice(word.length), wordBank);
+            totalCount += numWaysForRest;          
+        }
+    }
+    
+    return totalCount;
+};
+
+
+console.log("countConstruct purple", [ "purp", "p", "ur", "le", "purpl "], countConstruct("purple", [ "purp", "p", "ur", "le", "purpl"])); // 2
+console.log("countConstruct abcdef", ["ab", "abc", "cd", "def", "abcd"] , countConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // 1
+console.log("countConstruct skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , countConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // 0
+console.log("countConstruct enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], countConstruct("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // 4
+//console.log(countConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // 0
+
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Memoized CountConstruct WordBank ~~~~~~~~~~~~~~~~~~~~~');
+
+/*
+m = target.length
+n = wordbank.length
+
+Brute Force Soln:
+time: O(n*m^2)
+space: O(m^2)
+
+*/
+
+const countConstructMemo = (target, wordBank, memo = {}) => {
+    if(target in memo) return memo[target];
+    if (target === "") return 1;
+
+    let totalCount = 0;
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) === 0) {
+            const numWaysForRest = countConstructMemo(target.slice(word.length), wordBank, memo);
+            totalCount += numWaysForRest;          
+        }
+    }
+    memo[target] = totalCount;
+    return totalCount;
+};
+
+
+console.log("countConstructMemo purple", [ "purp", "p", "ur", "le", "purpl "], countConstructMemo("purple", [ "purp", "p", "ur", "le", "purpl"])); // 2
+console.log("countConstructMemo abcdef", ["ab", "abc", "cd", "def", "abcd"] , countConstructMemo("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // 1
+console.log("countConstructMemo skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , countConstructMemo("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // 0
+console.log("countConstructMemo enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], countConstructMemo("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // 4
+console.log(countConstructMemo("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // 0
