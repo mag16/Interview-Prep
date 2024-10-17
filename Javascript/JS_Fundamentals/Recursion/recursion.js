@@ -265,7 +265,7 @@ const fib = (n, memo = {}) => {
 console.log('memoized fibonacci for the 8th number in sequence: ',fib(8));
 console.log('memoized fibonacci for the 6th number in sequence: ',fib(6));
 
-// [../Images/gridTraveler.png]
+// [./Images/gridTraveler.png]
 // Grid traveler
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Grid Traveler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
@@ -284,7 +284,7 @@ console.log('slow Grid Traveler (3,2): ', gridTraveler(3,2));
 console.log('slow Grid Traveler (3,3): ', gridTraveler(1,1));
 // console.log('slow Grid Traveler, this one takes long (18,18): ', gridTraveler(18,18));
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Memoized Grid Traveler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Memoized Grid Traveler ~~~~~~~~~~~~~~~~~~~~~~~~~');
 
 // 0(m * n) time complexity, 0(n + m) space complexity
 const gridTravelerMemoized = (m, n, memo = {}) => {
@@ -303,3 +303,163 @@ console.log('memoized Grid Traveler (2,3): ', gridTravelerMemoized(2,3));
 console.log('memoized Grid Traveler (3,2): ', gridTravelerMemoized(3,2));
 console.log('memoized Grid Traveler (3,3): ', gridTravelerMemoized(1,1));
 console.log('memoized Grid Traveler, this one was taking long previously (18,18): ', gridTravelerMemoized(18,18));
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Can Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
+/* 
+canSum
+Write a function `canSum(targetSum, numbers)` that takes in a 
+targetSum and an array of numbers as arguments.
+
+The function should return a boolean indicating wheter or not it
+is possible to generate the targetSum using numbers from the array.
+
+You may use an element of the array as many times as needed.
+
+You may assume that all input numbers are non negative.
+
+canSum(7, [2,3,4]) => true
+
+[../Images/canSum.png]
+
+m = target sum;
+n = array length;
+
+0(n^m) Time complexity
+0(m) Space Complexity
+
+*/
+
+const canSum = (targetSum, numbers) => {
+    if (targetSum === 0) return true;
+    if (targetSum < 0) return false;
+
+    for (let num of numbers) {
+        const remainder = targetSum - num;
+        if (canSum(remainder, numbers) === true) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+console.log('canSum for (7, [2, 3]) :', canSum(7,[2,3]));
+console.log('Can Sum for(7, [5, 3, 4, 7]) :', canSum(7,[5,3,4,7]));
+console.log('Can Sum for(7, [2, 4]) :', canSum(7,[2,4]));
+console.log('Can Sum for(8, [2, 3, 5]) :', canSum(8, [2, 3, 5]));
+ // console.log('Can Sum for(300, [7, 14]) :', canSum(300, [7, 14]));  too slow to compute
+
+/*
+m = target sum;
+n = array length;
+
+0(m * n) Time complexity
+0(m) Space Complexity
+
+*/
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Memoized Can Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+ const memoCansum = (targetSum, numbers, memo = {}) => {
+    if (targetSum in memo) return memo[targetSum];
+    if (targetSum === 0) return true;
+    if (targetSum < 0) return false;
+
+    for (let num of numbers) {
+        const remainder = targetSum - num;
+        if (memoCansum(remainder, numbers, memo) === true) {
+            memo[targetSum] = true;
+            return true;
+        }
+    }
+    memo[targetSum] = false;
+    return false;
+};
+
+console.log('memoized Can Sum for (7, [2, 3]) :', memoCansum(7,[2,3]));
+console.log('memoized Can Sum for(7, [5, 3, 4, 7]) :', memoCansum(7,[5,3,4,7]));
+console.log('memoized Can Sum for(7, [2, 4]) :', memoCansum(7,[2,4]));
+console.log('memoized Can Sum for(8, [2, 3, 5]) :', memoCansum(8, [2, 3, 5]));
+console.log('memoized Can Sum for(300, [7, 14]) :', memoCansum(300, [7, 14]));
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ How Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+/* 
+howSum
+Write a function `howSum(targetSum, numbers)` that takes in a 
+targetSum and an array of numbers as arguments.
+
+The function should return an array containing any combination of elemenys
+that add up to exactly the targetSum.  If there are no combination that adds up
+to the targeSum, then return null.
+
+if there are multiple combinations, return any single one
+
+[/Interview-Prep/Images/howSum.png]
+
+m = target sum
+n = numbers.length
+
+time: O(n^m + m)
+space: O(m)
+
+*/
+
+const howSum = (targetSum, numbers) => {
+    if (targetSum === 0) return [];
+    if (targetSum < 0) return null;
+
+    for (let num of numbers) {
+        const remainder = targetSum - num;
+        const remainderResult = howSum(remainder, numbers);
+        if (remainderResult !== null) {
+            return [ ...remainderResult, num ];
+        }
+    }
+
+    return null;
+};
+
+console.log('howSum for 7, [2, 3]: ', howSum(7, [2, 3]));
+console.log('howSum for 7, [5, 3, 4, 7]: ', howSum(7, [5, 3, 4, 7]));
+console.log('howSum for 7, [2, 4]: ', howSum(7, [2, 4]));
+console.log('howSum for 8, [2, 3, 5]: ', howSum(8, [2, 3, 5]));
+// console.log('(takes a bit to compute) howSum for 300, [7, 14]: ', howSum( 300, [7, 14]));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Memoized How Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+/*
+m = target sum
+n = numbers.length
+
+time: O(n)
+space: O(m)
+
+
+*/
+
+const MemohowSum = (targetSum, numbers, memo = {}) => {
+    if (targetSum in memo) return memo[targetSum];
+    if (targetSum === 0) return [];
+    if (targetSum < 0) return null;
+
+    for (let num of numbers) {
+        const remainder = targetSum - num;
+        const remainderResult = MemohowSum(remainder, numbers, memo);
+        if (remainderResult !== null) {
+            memo[targetSum] = [ ...remainderResult, num ];
+            return memo[targetSum]
+        }
+    }
+
+    memo[targetSum] = null;
+    return null;
+};
+
+console.log('MemohowSum for 7, [2, 3]: ', MemohowSum(7, [2, 3]));
+console.log('MemohowSum for 7, [5, 3, 4, 7]: ', MemohowSum(7, [5, 3, 4, 7]));
+console.log('MemohowSum for 7, [2, 4]: ', MemohowSum(7, [2, 4]));
+console.log('MemohowSum for 8, [2, 3, 5]: ', MemohowSum(8, [2, 3, 5]));
+console.log('(takes a bit to compute) howSum for 300, [7, 14]: ', MemohowSum( 300, [7, 14]));
