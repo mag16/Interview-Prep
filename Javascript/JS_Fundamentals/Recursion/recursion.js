@@ -391,7 +391,7 @@ howSum
 Write a function `howSum(targetSum, numbers)` that takes in a 
 targetSum and an array of numbers as arguments.
 
-The function should return an array containing any combination of elemenys
+The function should return an array containing any combination of elements
 that add up to exactly the targetSum.  If there are no combination that adds up
 to the targeSum, then return null.
 
@@ -462,3 +462,25 @@ console.log('MemohowSum for 7, [5, 3, 4, 7]: ', MemohowSum(7, [5, 3, 4, 7]));
 console.log('MemohowSum for 7, [2, 4]: ', MemohowSum(7, [2, 4]));
 console.log('MemohowSum for 8, [2, 3, 5]: ', MemohowSum(8, [2, 3, 5]));
 console.log('(takes a bit to compute) howSum for 300, [7, 14]: ', MemohowSum( 300, [7, 14]));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ How Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+/* 
+bestSum
+Write a function `bestSum(targetSum, numbers)` that takes in a 
+targetSum and an array of numbers as arguments.
+
+The function should return an array containing the shortest combination of numbers 
+that add up to exactly the targetSum.  
+
+if there is a tie for the shortest combination you may return any one of the shortest.
+
+
+
+m = target sum
+n = numbers.length
+
+time: 
+space: 
+
+*/
