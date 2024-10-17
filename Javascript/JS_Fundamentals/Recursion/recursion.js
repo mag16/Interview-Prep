@@ -430,13 +430,12 @@ console.log('howSum for 8, [2, 3, 5]: ', howSum(8, [2, 3, 5]));
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~ Memoized How Sum ~~~~~~~~~~~~~~~~~~~~~~~~~');
 
-/*
+/*  Memoized How Sum
 m = target sum
 n = numbers.length
 
-time: O(n)
-space: O(m)
-
+time: O(n*m^2)
+space: O(m^2)
 
 */
 
