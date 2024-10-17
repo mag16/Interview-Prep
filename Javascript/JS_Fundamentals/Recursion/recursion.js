@@ -484,8 +484,9 @@ ex:  bestSum(8, [2, 3, 5]) --> [3, 5]
 m = target sum
 n = numbers.length
 
-time: 
-space: 
+Brute Force Soln:
+time: O(n^m + m)
+space: O(m^2)
 
 
 [../bestSum.png]
@@ -515,3 +516,45 @@ console.log('bestSum for 7, [5, 3, 4, 7]: ', bestSum(7, [5, 3, 4, 7])); //[7]
 console.log('bestSum for 8, [2, 3, 5]: ', bestSum(8, [2, 3, 5])); //[3, 5]
 console.log('bestSum for 8, [1, 4, 5]: ', bestSum(8, [1, 4, 5])); //[4, 4]
 // console.log('bestSum for 100, [1, 2, 5, 25]: ', bestSum(100, [1, 2, 5, 25])); //[25, 25, 25, 25]
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Memoized How Sum ~~~~~~~~~~~~~~~~~~~~~');
+
+/*
+Memoized Soln:
+
+m = target sum
+n = numbers.length
+
+time: O(m^2 * n)
+space: O(m^2)
+
+
+*/
+
+const bestSumMemo = (targetSum, numbers, memo = {}) => {
+    if (targetSum in memo ) return memo[targetSum];
+    if (targetSum === 0) return [];
+    if (targetSum < 0) return null;
+
+    let shortestCombination = null;
+
+    for (let num of numbers) {
+        const remainder = targetSum - num;
+        const remainderCombination = bestSumMemo(remainder, numbers, memo);
+        if (remainderCombination !== null) {
+            const combination = [ ...remainderCombination, num ];
+            if (shortestCombination === null || combination.length < shortestCombination.length) {
+                shortestCombination = combination;
+            }
+        }
+    }
+    
+    memo[targetSum]= shortestCombination;
+    return shortestCombination;
+};
+
+console.log('bestSumMemo for 7, [5, 3, 4, 7]: ', bestSumMemo(7, [5, 3, 4, 7])); //[7]
+console.log('bestSumMemo for 8, [2, 3, 5]: ', bestSumMemo(8, [2, 3, 5])); //[3, 5]
+console.log('bestSumMemo for 8, [1, 4, 5]: ', bestSumMemo(8, [1, 4, 5])); //[4, 4]
+console.log('bestSumMemo for 100, [1, 2, 5, 25]: ', bestSumMemo(100, [1, 2, 5, 25])); //[25, 25, 25, 25]
