@@ -21,6 +21,9 @@ https://www.youtube.com/watch?v=IJDJ0kBx2LM&t=657s
 
 https://programiz.pro/course/learn-recursion-with-python
 
+Dynamic Programming YT w Coderbyte:
+https://www.youtube.com/watch?v=oBt53YbR9Kk&t=10690s
+
 */
 
 let callMyself = function() {
@@ -838,6 +841,28 @@ console.log("allConstructMemo: purple", [ "purp", "p", "ur", "le", "purpl "], al
 console.log("allConstructMemo: abcdef", ["ab", "abc", "cd", "def", "abcd"] , allConstructMemo("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // 
 console.log("allConstructMemo: skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , allConstructMemo("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); 
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~TABULATION ~~~~~~~~~~~~~~~~~~~~~');
-console.log('~~~~~~~~~~~Fibonnacci Sequence w Tabulation ~~~~~~~~~~~~~~~~');
 
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ TABULATION ~~~~~~~~~~~~~~~~~~~~~');
+
+
+
+
+console.log('~~~~~~~~~~~ Fibonnacci Sequence w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+const fibTabulation = (n) => {
+    const table = Array(n + 1).fill(0);
+    table[1] = 1;
+    for (let i = 0; i <= n; i++) {
+        table[i + 1] += table[i];
+        table[i + 2] += table[i];
+    }
+
+    return table[n];
+};
+
+console.log('fibTabulation(6) :', fibTabulation(6));
+console.log('fibTabulation(7) :', fibTabulation(7));
+console.log('fibTabulation(8) :', fibTabulation(8));
+console.log('fibTabulation(50) :', fibTabulation(50));
