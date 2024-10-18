@@ -680,6 +680,8 @@ Brute Force Soln:
 time: O(n^m * m)
 space: O(m^2)
 
+[../../../Images/canConstructMemo.png]
+
 */
 
 const countConstruct = (target, wordBank) => {
@@ -776,22 +778,66 @@ m = target.length
 n = wordbank.length
 
 Brute Force Soln:
-time: O()
-space: O()
-
-[../../../Images/canConstructMemo.png]
+time: O(n^m)
+space: O(m)
 
 */
 
 const allConstruct = (target, wordBank) => {
-    if (target === "") return "";
+    if (target === "") return [[]];
+
+    const result = [];
 
     for (let word of wordBank) {
         if (target.indexOf(word) === 0) {
-            const numWaysForRest = countConstruct(target.slice(word.length), wordBank);
-            totalCount += numWaysForRest;          
+            const suffix = target.slice(word.length);
+            const suffixWays = allConstruct(suffix, wordBank);
+            const targetWays = suffixWays.map(way => [ word, ...way ]);
+            result.push( ...targetWays);
         }
     }
-    
-    return totalCount;
+
+    return result
 };
+
+console.log("allConstruct: purple", [ "purp", "p", "ur", "le", "purpl "], allConstruct("purple", [ "purp", "p", "ur", "le", "purpl"])); // 
+console.log("allConstruct: abcdef", ["ab", "abc", "cd", "def", "abcd"] , allConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // 
+console.log("allConstruct: skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , allConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // 0
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Memoized allConstruct WordBank ~~~~~~~~~~~~~~~~~~~~~');
+/*
+m = target.length
+n = wordbank.length
+
+Memoized Soln:
+time: O(n^m)
+space: O(m)
+
+*/
+
+const allConstructMemo = (target, wordBank, memo = {}) => {
+    if (target in memo) return memo[target];
+    if (target === "") return [[]];
+
+    const result = [];
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) === 0) {
+            const suffix = target.slice(word.length);
+            const suffixWays = allConstructMemo(suffix, wordBank, memo);
+            const targetWays = suffixWays.map(way => [ word, ...way ]);
+            result.push( ...targetWays);
+        }
+    }
+
+    memo[target] = result; // Storing result in memo ensures you're caching the complete set of solutions, ready to be returned if you encounter the same target again.
+    return result
+};
+
+console.log("allConstructMemo: purple", [ "purp", "p", "ur", "le", "purpl "], allConstructMemo("purple", [ "purp", "p", "ur", "le", "purpl"])); // 
+console.log("allConstructMemo: abcdef", ["ab", "abc", "cd", "def", "abcd"] , allConstructMemo("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // 
+console.log("allConstructMemo: skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , allConstructMemo("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); 
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~TABULATION ~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~Fibonnacci Sequence w Tabulation ~~~~~~~~~~~~~~~~');
+
