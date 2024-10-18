@@ -740,3 +740,58 @@ console.log("countConstructMemo abcdef", ["ab", "abc", "cd", "def", "abcd"] , co
 console.log("countConstructMemo skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , countConstructMemo("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // 0
 console.log("countConstructMemo enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], countConstructMemo("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // 4
 console.log(countConstructMemo("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // 0
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ allConstruct WordBank ~~~~~~~~~~~~~~~~~~~~~');
+
+/* 
+allConstruct
+Write a function `allConstruct(target, wordBank)` that accepts a 
+target string and an array of strings.
+
+The function should return a 2D array containing all of the ways the the `target` can be constructed
+by concatinating elements of the `wordBank` array.  Each element of the 2D array should represent one combination
+that constructs the `target`
+
+You may reuse elements of `wordBank` as many times as needed.
+
+ex:  allConstruct(purple, [ purp, p, ur, le, purpl ]) --> 
+                [    
+                    [ purp + le ], 
+                    [ purpl + e ]
+                ]
+
+
+ex: allConstruct(abcdef, [ ab, abc, cd, def, abcd, ef, c]) -->
+                [
+                    [ ab, cd, ef ],
+                    [ ab, c, def ],
+                    [ abc, def ],
+                    [ abcd, ef ]
+                ]
+
+
+
+m = target.length
+n = wordbank.length
+
+Brute Force Soln:
+time: O()
+space: O()
+
+[../../../Images/canConstructMemo.png]
+
+*/
+
+const allConstruct = (target, wordBank) => {
+    if (target === "") return "";
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) === 0) {
+            const numWaysForRest = countConstruct(target.slice(word.length), wordBank);
+            totalCount += numWaysForRest;          
+        }
+    }
+    
+    return totalCount;
+};
