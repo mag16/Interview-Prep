@@ -395,7 +395,9 @@ Write a function `howSum(targetSum, numbers)` that takes in a
 targetSum and an array of numbers as arguments.
 
 The function should return an array containing any combination of elements
-that add up to exactly the targetSum.  If there are no combination that adds up
+that add up to exactly the targetSum.  
+
+If there are no combination that adds up
 to the targeSum, then return null.
 
 if there are multiple combinations, return any single one
@@ -851,6 +853,12 @@ console.log('~~~~~~~~~~~~~~~~~~~~~~~ TABULATION ~~~~~~~~~~~~~~~~~~~~~');
 
 console.log('~~~~~~~~~~~ Fibonnacci Sequence w/ Tabulation ~~~~~~~~~~~~~~~~');
 
+/*
+Fibonnacci Tabulation:
+time: O(n)
+space: O(n)
+*/
+
 const fibTabulation = (n) => {
     const table = Array(n + 1).fill(0);
     table[1] = 1;
@@ -866,3 +874,368 @@ console.log('fibTabulation(6) :', fibTabulation(6));
 console.log('fibTabulation(7) :', fibTabulation(7));
 console.log('fibTabulation(8) :', fibTabulation(8));
 console.log('fibTabulation(50) :', fibTabulation(50));
+
+
+
+console.log('~~~~~~~~~~~ Grid Traveler w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+gridTraveler with Tabulation:
+
+Tabulation Recipe:
+* visualize the problem as a table
+* size the table based on the inputs
+* initialize the table with default values
+* seed the trivial answer into the table
+* iterate through the table
+* fill further positions based on the current position
+
+*/
+
+const gridTravelerTabulation = (m,n) => {
+    const table = Array(m + 1)
+    .fill()
+    .map(() => Array(n + 1).fill(0));
+
+    //console.log(table);
+    table[1][1] = 1;
+
+    for (let i = 0; i <= m; i++) {
+        for (let j = 0; j <= n; j++){
+            const current = table [i][j];
+            if (j + 1 <= n) table[i][j + 1] += current;
+            if (i + 1 <= m) table[i + 1][j] += current; 
+        }
+    }
+
+    return table[m][n];
+};
+
+console.log('gridTraveler Tabulation (1,1): ',gridTravelerTabulation(1,1));
+console.log('gridTraveler Tabulation (2,3): ',gridTravelerTabulation(2,3));
+console.log('gridTraveler Tabulation (3,2): ',gridTravelerTabulation(3,2));
+console.log('gridTraveler Tabulation (3,3): ',gridTravelerTabulation(3,3));
+console.log('gridTraveler Tabulation (18,18): ',gridTravelerTabulation(18,18));
+
+
+
+console.log('~~~~~~~~~~~ canSum w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+canSum w Tabulation
+Write a function `canSum(targetSum, numbers)` that takes in a 
+targetSum and an array of numbers as arguments.
+
+The function should return a boolean indicating wheter or not it
+is possible to generate the targetSum using numbers from the array.
+
+You may use an element of the array as many times as needed.
+
+You may assume that all input numbers are non negative.
+
+Time Complexity: O(m * n)
+
+*/
+
+
+
+const canSumTab = (targetSum, numbers) => {
+    const table = Array(targetSum + 1).fill(false);
+    table[0] = true;
+
+    for (let i = 0; i <= targetSum; i++){
+        if (table[i] === true) {
+            for (let num of numbers) {
+                table[i + num] = true;
+            }
+        }
+    }
+
+    return table[targetSum];
+};
+
+console.log('canSum Tabulation for (7, [2, 3]) : ', canSumTab(7, [2, 3]));
+console.log('canSum Tabulation for (7, [5, 3, 4, 7]) : ', canSumTab(7, [5, 3, 4, 7]));
+console.log('canSum Tabulation for (7, [2, 4]) : ', canSumTab(7, [2, 4]));
+console.log('canSum Tabulation for (8, [2, 3, 5]) : ', canSumTab(8, [2, 3, 5]));
+console.log('canSum Tabulation for (300, [7, 14]) : ', canSumTab(300, [7, 14]));
+
+
+console.log('~~~~~~~~~~~ howSum w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+howSum Tabulation
+Write a function `howSum(targetSum, numbers)` that takes in a 
+targetSum and an array of numbers as arguments.
+
+The function should return an array containing any combination of elements
+that add up to exactly the targetSum.  
+
+If there are no combination that adds up
+to the targeSum, then return null.
+
+if there are multiple combinations, return any single one
+
+Time Complexity: O(m^2 * n)
+
+*/
+
+const howSumTab = (targetSum, numbers) => {
+    const table = Array(targetSum + 1).fill(null);
+    table[0] = [];
+
+    for (let i = 0; i <= targetSum; i++){
+        if (table[i] !== null) {
+            for (let num of numbers) {
+                table[i + num] = [ ...table[i], num];
+            }
+        }
+    }
+
+    return table[targetSum];
+};
+
+
+console.log('howSum Tabulation for (7, [2, 3]) : ', howSumTab(7, [2, 3]));
+console.log('howSum Tabulation for (7, [5, 3, 4, 7]) : ', howSumTab(7, [5, 3, 4, 7]));
+console.log('howSum Tabulation for (7, [2, 4]) : ', howSumTab(7, [2, 4]));
+console.log('howSum Tabulation for (8, [2, 3, 5]) : ', howSumTab(8, [2, 3, 5]));
+console.log('howSum Tabulation for (300, [7, 14]) : ', howSumTab(300, [7, 14]));
+
+
+
+console.log('~~~~~~~~~~~ bestSum w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+bestSum Tabulation
+
+Write a function `bestSum(targetSum, numbers)` that takes in a 
+targetSum and an array of numbers as arguments.
+
+The function should return an array containing the shortest combination of numbers 
+that add up to exactly the targetSum.  
+
+if there is a tie for the shortest combination you may return any one of the shortest.
+
+ex:  bestSum(8, [2, 3, 5]) --> [3, 5]
+[2, 2, 2, 2]
+[2, 3, 3]
+[3, 5] ---> shortest combination
+
+
+m = target sum
+n = numbers.length
+
+Time Complexity: O(m^2 * n)
+Space Complexity: O(m^2)
+
+*/
+
+const bestSumTab = (targetSum, numbers) => {
+    const table = Array(targetSum + 1).fill(null);
+    table[0] = [];
+
+    for (let i = 0; i <= targetSum; i++){
+        if (table[i] !== null) {
+            for (let num of numbers) {
+                const combination = [ ...table[i], num];
+                // if this current combination is shorter than what is already stored
+                if (!table[i + num] || table[i + num].length > combination.length) {
+                    table[i + num] = combination;
+                }
+            }
+        }
+    }
+
+    return table[targetSum];
+};
+
+
+console.log('bestSum Tabulation for (7, [5, 3, 4, 7]) : ', bestSumTab(7, [5, 3, 4, 7]));
+console.log('bestSum Tabulation for (8, [2, 3, 5]) : ', bestSumTab(8, [2, 3, 5]));
+console.log('bestSum Tabulation for (8, [1, 4, 5]) : ', bestSumTab(8, [1, 4, 5]));
+console.log('bestSum Tabulation for (100, [1, 2, 5, 25]) : ', bestSumTab(100, [1, 2, 5, 25]));
+
+
+console.log('~~~~~~~~~~~ canConstruct w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+canConstruct w Tabulation
+
+Write a function `canConstruct(target, wordBank)` that accepts a 
+target string and an array of strings.
+
+The function should return a boolean indicating wether or not the `target` can be constructed
+by concatenating elements in the `wordBank` array
+
+ex:  canConstruct(abcdef, [ab, abc, cd, def, abcd]) --> true
+
+     canConstruct(skateboard, [ bo, rd, ate, sk, boar ]) --> false
+                    ska + t + ?
+                    sk + ate + boar + ?
+                    ak + ate + bo + ?
+
+
+
+
+m = target.length
+n = wordbank.length
+
+Tabulation Soln:
+time: O(m^2 * n)
+space: O(m)
+
+*/
+
+const canConstructTab = (target, wordBank) => {
+    const table = Array(target.length - 1).fill(false);
+    table[0] = true;
+
+    for (let i = 0; i <= target.length; i++){
+        if (table[i] === true) {
+            for (let word of wordBank) {
+                // if the word matches the characters starting at position i
+                if (target.slice(i, i + word.length) === word) {
+                    table[i + word.length] = true;
+                }
+            }
+            
+        }
+    }
+
+    return table[target.length];
+};
+
+
+
+
+
+
+console.log("canConstructTab abcdef", ["ab", "abc", "cd", "def", "abcd"] , canConstructTab("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // true
+console.log("canConstructTab skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , canConstructTab("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // false
+console.log("canConstructTab enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], canConstructTab("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // true
+console.log(canConstructTab("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // false
+
+
+
+console.log('~~~~~~~~~~~ countConstruct w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+countConstruct w/ Tabulation
+
+Write a function `countConstruct(target, wordBank)` that accepts a 
+target string and an array of strings.
+
+The function should return the number of ways that the `target` can be constructed
+by concatenating elements in the `wordBank` array.
+
+You may reuse elements of `wordBank` as many times as needed.
+
+ex:  canConstruct(abcdef, [ab, abc, cd, def, abcd]) --> 1
+
+     canConstruct(purple, [ purp, p, ur, le, purpl ]) --> 2
+                    purp + le 
+                    purpl + e 
+                    
+
+
+
+
+m = target.length
+n = wordbank.length
+
+time: O(n^m * m)
+space: O(m^2)
+
+
+*/
+
+const countConstructTab = (target, wordBank) => {
+    const table = Array(target.length + 1).fill(0);
+    table[0] = 1;
+
+    for (let i = 0; i <= target.length; i++){
+        for (let word of wordBank) {
+            if (target.slice(i, i + word.length) === word) {
+                table[i + word.length] += table[i];
+            }
+        }
+    }
+
+    return table[target.length];
+};
+
+
+
+console.log("countConstructTab purple", [ "purp", "p", "ur", "le", "purpl "], countConstructTab("purple", [ "purp", "p", "ur", "le", "purpl"])); // 2
+console.log("countConstructTab abcdef", ["ab", "abc", "cd", "def", "abcd"] , countConstructTab("abcdef", ["ab", "abc", "cd", "def", "abcd"])); // 1
+console.log("countConstructTab skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , countConstructTab("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"])); // 0
+console.log("countConstructTab enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"], countConstructTab("enterapotentpot", ["a", "p", "ent", "enter", "ot", "o", "t"])); // 4
+console.log(countConstructTab("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", ["e", "ee", "eee", "eee", "eeee", "eeeee", "eeeeeeee"])); // 0
+
+
+
+
+console.log('~~~~~~~~~~~ AllConstruc w/ Tabulation ~~~~~~~~~~~~~~~~');
+
+/*
+allConstruc Tabulation
+Write a function `allConstrucTab(target, wordBank)` that accepts a 
+target string and an array of strings.
+
+The function should return a 2D array containing all of the ways the the `target` can be constructed
+by concatinating elements of the `wordBank` array.  Each element of the 2D array should represent one combination
+that constructs the `target`
+
+You may reuse elements of `wordBank` as many times as needed.
+
+ex:  allConstruct(purple, [ purp, p, ur, le, purpl ]) --> 
+                [    
+                    [ purp + le ], 
+                    [ purpl + e ]
+                ]
+
+
+ex: allConstruct(abcdef, [ ab, abc, cd, def, abcd, ef, c]) -->
+                [
+                    [ ab, cd, ef ],
+                    [ ab, c, def ],
+                    [ abc, def ],
+                    [ abcd, ef ]
+                ]
+
+
+
+m = target.length
+n = wordbank.length
+
+time: O(n^m)
+space: O(n^m)
+
+*/
+
+const allConstrucTab = (target, wordBank) => {
+    const table = Array(target.length + 1).fill().map(() => []);
+
+    table[0] = [[]];
+
+    for (let i = 0; i <= target.length; i++){
+        for (let word of wordBank) {
+            if (target.slice(i, i + word.length) === word) {
+                const newCombinations = table[i].map(subArray => [ ...subArray, word ]);
+                table[i + word.length].push(...newCombinations)
+            }
+        }
+    }
+
+    return table[target.length];
+};
+
+
+
+
+console.log("allConstrucTab: purple", [ "purp", "p", "ur", "le", "purpl "], allConstrucTab("purple", [ "purp", "p", "ur", "le", "purpl"])); 
+
+console.log("allConstrucTab: skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"] , allConstrucTab("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
+
+console.log("allConstrucTab: abcdef", ["ab", "abc", "cd", "def", "abcd"] , allConstrucTab("abcdef", ["ab", "abc", "cd", "def", "abcd"])); 
