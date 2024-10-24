@@ -99,9 +99,10 @@ console.log(`The character count of this string w/charCount is :`, charCount("Pi
 
 function charCount2(str) {
     let obj = {};
+    let regex = /[a-z0-9]/;
     for (let i = 0; i < str.length; i++) {
         let char = str[i].toLowerCase();
-        if (/[a-z0-9]/.test(char)) {
+        if (regex.test(char)) {
             if(obj[char] > 0) {
                 obj[char]++;
             } else {
