@@ -285,3 +285,27 @@ console.log('is this a valid aganagram2 ?: ("texttwisttime","timetwisttext")',va
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~ Multiple Pointers ~~~~~~~~~~~~~~~~~~~~~~');
 
+/*
+Multiple Pointers
+Creating pointers or values that correspond to an index or position
+and move towards the beginning, end or middle based on a certain position
+
+very efficient for solving problems with a minimal space complexity as well
+*/
+
+/*
+SumZero
+write a function called sumZero which accepts a sorted arrayh of integers. 
+The function should find the first pair where the sum is zero.  Return an array that includes
+both values that sum to zero on undefined if a pair does not exist.
+*/
+
+const sumZero = (arr) => {
+
+
+
+}
+
+console.log(sumZero([-3, -2, -1, 0, 1, 2, 3])) // [-3, -3]
+console.log(sumZero([-2, 0, 1, 3])) // undefined
+console.log(sumZero([1, 2, 3])) //undefined
