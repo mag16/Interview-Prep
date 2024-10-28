@@ -1,6 +1,9 @@
 /*
 https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/learn/lecture/8344046#overview
 
+coderByte:
+https://www.youtube.com/watch?v=TKrMgCCwNGQ&list=PLxQ8cCJ6LyOYCas1Ln-L8kCBquxw20ljC&index=5
+
 */
 
 // Ways to time your code.
@@ -354,3 +357,131 @@ const countUniqueValues2 = (array) => {
 };
 
 console.log('countUniqueValues2:', countUniqueValues2([1, 1, 1, 1, 1, 2])); // 2
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Multiple Pointers: findPair ~~~~~~~~~~~~~~~~~~~~~~');
+
+
+function findPair(arr, targetSum) {
+    let leftPointer = 0,
+        rightPointer = arr.length - 1,
+        pair = null;
+
+
+    
+        while (leftPointer != rightPointer){
+            pairSum = arr[leftPointer] + arr[rightPointer];
+            if (pairSum === targetSum) {
+                pair = [arr[leftPointer], arr[rightPointer]];
+                break;
+            } else if (pairSum < targetSum) {
+                leftPointer++
+            } else if (pairSum > targetSum) {
+                rightPointer--
+            }
+
+        }
+
+        return pair;
+};
+
+console.log(findPair([1, 2, 3, 4, 5], 7)) // [2, 5]
+console.log(findPair([1, 6, 8, 9, 10], 14)) // [6, 8]
+console.log(findPair([1, 3, 4, 6, 8, 10], 12)) // [4, 8]
+console.log(findPair([1, 2, 3, 4, 5], 10)) // null
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Multiple Pointers: Triplets Sum To Zero ~~~~~~~~~~~~~~~~~~~~~~');
+/*
+**************  Triplets Sum to Zero  ***************
+Given an array of unsorted numbers, find
+all unique triplets in it that add up to zero
+
+[-3, 0 ,1, 2, -1, 1, -2]  ====>
+[[-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]]
+
+Steps to solve:
+1. Sort the array
+2. Loop over the array
+    a. Take the negative of the array[i] as a targetSum
+    b. Look for the pair of to the targetSum
+       using two pointers.
+
+*/
+
+function tripletsToZero(arr) {
+    arr.sort((a, b) => a - b);
+
+    const triplets = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        let targetSum = -arr[i];
+
+        if (i > 0 && arr[i] === arr[i - 1]) {
+            continue;
+        }
+
+        searchPair(arr, targetSum, i + 1, triplets);
+    };
+
+    return triplets;
+};
+
+function searchPair(arr, targetSum, leftPointer, triplets) {
+    let rightPointer = arr.length - 1;
+
+    while (leftPointer < rightPointer){
+        const currentSum = arr[leftPointer] + arr[rightPointer];
+        // we found a triplet
+        if (currentSum === targetSum){
+            triplets.push([-targetSum, arr[leftPointer], arr[rightPointer]])
+            leftPointer++;
+            rightPointer--;
+            // move the pointer up until we get a new integer that is different
+            while (leftPointer < rightPointer && arr[leftPointer] === arr[leftPointer - 1]) {
+                leftPointer++
+            }
+            while (leftPointer < rightPointer && arr[leftPointer] === arr[leftPointer + 1]) {
+                rightPointer--;
+            } 
+        } else if (targetSum > currentSum) {
+            leftPointer++;
+        } else if (targetSum < currentSum) {
+            rightPointer--;
+        }
+    }
+};
+
+console.log(tripletsToZero([-3, 0, 1, 2, -1, 1, -2]));
+console.log(tripletsToZero([-5, 2, -1, -2, 3]));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ Two Pointers Approach: Smallest SubArray To Sort Array ~~~~~~~~~~~~~~~~~~~~~~');
+/*
+******** Smallest SubArray To Sort Array ***********
+
+Given an array of unsorted numbers, find the length of the smallest subarray
+that when sorted will sort the whole array
+
+[1, 3, 2, 0, -1, 7, 10] =========>  5 (you sort 1, 3, 2, 0, -1) =====> [-1, 0, 1, 2, 3, 7, 10]
+
+
+1. Initialize leftPointer at the start of the array and rightPointer at the end
+2. Walk leftPointer forward until you get to an element that is less than its prev.
+3. Walk rightPointer backwards until you get to an element that is greater than its prev
+4. Find the maximum and minimum of this subarray.
+5. Extend the subarray from the beginning to include any number greater than the minimum of 
+the subarray.
+6. Extend the subarray from the end to include any number less thatn the maximum of the subarray
+
+CoderByte Video:
+https://www.youtube.com/watch?v=RPNrhAHuPoQ&list=PLxQ8cCJ6LyOYCas1Ln-L8kCBquxw20ljC&index=6
+
+*/
+
+function findMinimumWindow(arr) {
+
+
+}
+
+console.log(findMinimumWindow([1, 3, 2, 0, -1, 7, 10]))  // 5
+console.log(findMinimumWindow([1, 2, 5, 7, 3, 10, 11, 12])) // 3
+console.log(findMinimumWindow([1, 3, 2])) // 0
+console.log(findMinimumWindow([4, 3, 2, 1])) // 4
