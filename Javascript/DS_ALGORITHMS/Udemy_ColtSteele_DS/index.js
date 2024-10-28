@@ -326,3 +326,31 @@ console.log(sumZero([-3, -2, -1, 0, 1, 2, 3])) // [-3, -3]
 console.log(sumZero([-2, 0, 1, 3])) // undefined
 console.log(sumZero([1, 2, 3])) //undefined
 console.log(sumZero([-5, 1, 2, 3, 4, 5])) // [-5, 5]
+
+/*
+countUniqueValues
+implement a function called countUniqueValues,
+which accepts a sorted array and counts the unique values in an array.
+There can be a negative numbers in the array, but it will always be sorted
+*/
+
+const countUniqueValues = (array) => {
+    let count = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        let index = array[i];
+        if (array.indexOf(index) === i) {
+            count++;
+        }
+    }
+    return count;
+};
+
+console.log('countUnquiqueValues:',countUniqueValues([1, 1, 1, 1, 1, 2])); // 2
+
+const countUniqueValues2 = (array) => {
+    let uniqueValues = new Set(array);
+    return uniqueValues.size;
+};
+
+console.log('countUniqueValues2:', countUniqueValues2([1, 1, 1, 1, 1, 2])); // 2
