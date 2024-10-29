@@ -695,6 +695,108 @@ Given an integer, write a function to determine if after
 repeatedly replacing it with an integer equal to the sum
 of the square of all of its digits, leads us to the number 1
 
+ex:
+Input: 23
+Output: true
+
+1. 2^2 + 3^2 = 4 + 9 = 13
+2. 1^2 + 3^2 = 1 + 0 = 10
+3. 1^2 + 0^2 = 1 + 0 = 1
+
+video:
+https://www.youtube.com/watch?v=SJRaMCSgNWQ&list=PLxQ8cCJ6LyOYCas1Ln-L8kCBquxw20ljC&index=8
+
+*/
+
+function findUltimateOne(num){
+    let slowPointer = num;
+    let fastPointer = num;
+    /* is there a cycle?
+    slowPointer === fastPointer
+    return false;
+
+    if there isnt a cycle?
+    either slowPointer or fastPointer === 1
+    */
+
+    while (true) {
+        slowPointer = findSquareSum(slowPointer);
+        fastPointer = findSquareSum(findSquareSum(fastPointer));
+
+        if (slowPointer === fastPointer) return false; // Cycle detected
+        if (slowPointer === 1 || fastPointer === 1) {
+            return true;
+        }
+    }
+};
+
+function findSquareSum(num) {
+    let sum = 0;
+
+    while (num > 0) {
+        digit = num % 10; // isolate the last digit in num
+        sum += digit * digit;
+        num = Math.floor(num / 10);
+    }
+    return sum;
+}
+
+console.log('first find the sum of the squares of the digits in Num = 23', findSquareSum(23));
+console.log('findUltimateOne of 23',findUltimateOne(23)); // true
+
+console.log('first find the sum of the squares ofsquare of the digits in Num = 12', findSquareSum(12));
+console.log('findUltimateOne of 12',findUltimateOne(12)); // false
+
+/*
+The findUltimateOne function uses the slow/fast pointer technique to determine if repeatedly summing the squares of the digits of a number eventually leads to 1.
+
+Here’s a breakdown:
+
+1. Initialize Pointers:
+
+* let slowPointer = num;
+
+* let fastPointer = num;
+
+* Both pointers start at the original number.
+
+2. Cycle Detection:
+
+* The function aims to detect a cycle (endless loop) or reach the value 1.
+
+3 .While Loop:
+
+* while (true) { ... }
+
+* This infinite loop continues until either a cycle is detected or the number 1 is reached.
+
+4. Move Pointers:
+
+* slowPointer = findSquareSum(slowPointer);
+
+* fastPointer = findSquareSum(findSquareSum(fastPointer));
+
+* The slow pointer moves by calculating the square sum once.
+
+* The fast pointer moves by calculating the square sum twice (advances two steps).
+
+5. Cycle Check:
+
+* if (slowPointer === fastPointer) return false;
+
+* If slow and fast pointers meet, a cycle is detected, meaning the number will never reach 1.
+
+6 .Reach 1 Check:
+
+* if (slowPointer === 1 || fastPointer === 1) { return true; }
+
+* If either pointer reaches 1, the function returns true, indicating success.
+
+So essentially, it's checking if the process of summing the squares of digits will reach 1 (true) or fall into a loop (false).
+
+
+
+
 */
 
 
