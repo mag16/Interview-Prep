@@ -576,6 +576,7 @@ console.log(findMinimumWindow2([12, 7, 8, 1, 2, 0, 10, 11])); // 8
 
 console.log('~~~~~~~~~~~~~~ Two Pointers Approach: Slow/Fast Pointers ~~~~~~~~~~~~~~~~');
 console.log('~~~~~~~~~~~~~~ Tortoise & Hare ~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~ Does LinkedList Have A Cycle? ~~~~~~~~~~~~~~~~');
 /*
 **********  Fast & Slow Pointers ************
 The fast and slow pointers approach, AKA the
@@ -683,6 +684,16 @@ Fast Pointer: Moves two steps at a time.
 
 If there’s a cycle, the fast pointer will eventually meet the slow pointer 
 within the cycle. If there’s no cycle, the fast pointer will reach the end of the list.
+
+*/
+
+console.log('~~~~~~~~~~~~~~ Integer and Sum of Its Squares ~~~~~~~~~~~~~~~~');
+
+/*
+************ Problem *************
+Given an integer, write a function to determine if after
+repeatedly replacing it with an integer equal to the sum
+of the square of all of its digits, leads us to the number 1
 
 */
 
