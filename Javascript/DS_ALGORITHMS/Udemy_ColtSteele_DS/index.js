@@ -585,14 +585,14 @@ different speeds.  This approach is especially useful when dealing
 with cyclic LinkedLists or arrays.
 
 By moving at different speeds, the algorithm proves that the two pointers
-are bound to meet.  The fast pointer should catch the slow pointer once bith
+are bound to meet.  The fast pointer should catch the slow pointer once both
 the pointers are in a cyclic loop.
 */
 
 /*
 ############## PROBLEM ##############
 Given the head of a Singly LinkedList, write
-a function to determin if the LinkedList has a cycle in it
+a function to determine if the LinkedList has a cycle in it
 or not.
 
 Singly LinkedList
@@ -622,7 +622,7 @@ function hasCycle(head){
         // 1x speed
         slowPointer = slowPointer.next;
         if (slowPointer === fastPointer) {
-            return true;
+            return true; // cycle
         }
     }
     return false;
@@ -662,6 +662,29 @@ const nodePurple = new Node('purple', nodeRed);
 const headOrange = new Node('orange', nodePurple);
 
 console.log('Test Case 3 LinkedList hasCycle: ',hasCycle(headOrange));
+
+/*
+A cycle in a linked list occurs when a node’s next pointer points back 
+to a previous node in the list, creating a loop. This means that traversing 
+the list could lead you to infinitely revisit the same set of nodes.
+
+Here’s a visualization:
+
+No Cycle: 1 → 2 → 3 → null
+
+Cycle: 1 → 2 → 3 ↘ ↖ ↙
+
+In the second case, node 3 points back to node 2, creating a cycle.
+
+Slow/Fast Pointer Technique
+Slow Pointer: Moves one step at a time.
+
+Fast Pointer: Moves two steps at a time.
+
+If there’s a cycle, the fast pointer will eventually meet the slow pointer 
+within the cycle. If there’s no cycle, the fast pointer will reach the end of the list.
+
+*/
 
 
 
