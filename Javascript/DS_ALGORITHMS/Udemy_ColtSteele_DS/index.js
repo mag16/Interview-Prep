@@ -573,3 +573,95 @@ console.log(findMinimumWindow2([1, 2, 5, 7, 3, 10, 11, 12])); // 3
 console.log(findMinimumWindow2([1, 3, 2])); // 2
 console.log(findMinimumWindow2([4, 3, 2, 1])); // 4
 console.log(findMinimumWindow2([12, 7, 8, 1, 2, 0, 10, 11])); // 8
+
+console.log('~~~~~~~~~~~~~~ Two Pointers Approach: Slow/Fast Pointers ~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~ Tortoise & Hare ~~~~~~~~~~~~~~~~');
+/*
+**********  Fast & Slow Pointers ************
+The fast and slow pointers approach, AKA the
+Hare & Tortoise algorithms, is a pointer algorithm
+that uses two pointers which move through an array at 
+different speeds.  This approach is especially useful when dealing
+with cyclic LinkedLists or arrays.
+
+By moving at different speeds, the algorithm proves that the two pointers
+are bound to meet.  The fast pointer should catch the slow pointer once bith
+the pointers are in a cyclic loop.
+*/
+
+/*
+############## PROBLEM ##############
+Given the head of a Singly LinkedList, write
+a function to determin if the LinkedList has a cycle in it
+or not.
+
+Singly LinkedList
+* Every node contains some data and a pointer to the next
+node
+* Allows traversal of data only in one way
+
+[../../Images/SlowFastPointers.png]
+
+*/
+
+class Node {
+    constructor(value, next = null){
+        this.value = value
+        this.next = next
+    }
+}
+
+function hasCycle(head){
+    let slowPointer = head,
+    fastPointer = head
+
+    // while the fastPointer is still in the LinkedList
+    while (fastPointer !== null && fastPointer.next !== null) {
+        // 2x speed
+        fastPointer = fastPointer.next.next;
+        // 1x speed
+        slowPointer = slowPointer.next;
+        if (slowPointer === fastPointer) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Test Case 1
+const node6 = new Node(6);
+const node5 = new Node(5, node6);
+const node4 = new Node(4, node5);
+const node3 = new Node(3, node4);
+const node2 = new Node(2, node3);
+const head1 = new Node(1, node2);
+
+// add the cycle
+node6.next = node3;
+
+console.log('Test Case 1 LinkedList hasCycle: ',hasCycle(head1));
+
+// Test Case 2
+const nodeF = new Node('f');
+const nodeE = new Node('e', nodeF);
+const nodeD = new Node('d', nodeE);
+const nodeC = new Node('c', nodeD);
+const nodeB = new Node('b', nodeC);
+const headA = new Node('a', nodeB);
+
+// add cycle
+nodeF.next = nodeB;
+
+console.log('Test Case 2 LinkedList hasCycle: ',hasCycle(headA));
+
+// Test Case 3
+const nodeYellow = new Node('yellow');
+const nodeBlue = new Node('blue', nodeYellow);
+const nodeRed = new Node('red', nodeBlue);
+const nodePurple = new Node('purple', nodeRed);
+const headOrange = new Node('orange', nodePurple);
+
+console.log('Test Case 3 LinkedList hasCycle: ',hasCycle(headOrange));
+
+
+
