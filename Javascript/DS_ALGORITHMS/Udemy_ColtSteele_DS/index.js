@@ -453,7 +453,7 @@ function searchPair(arr, targetSum, leftPointer, triplets) {
 console.log(tripletsToZero([-3, 0, 1, 2, -1, 1, -2]));
 console.log(tripletsToZero([-5, 2, -1, -2, 3]));
 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~ Two Pointers Approach: Smallest SubArray To Sort Array ~~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~ Two Pointers Approach: Smallest SubArray To Sort Array ~~~~~~~~~~~~~~~~');
 /*
 ******** Smallest SubArray To Sort Array ***********
 
@@ -477,11 +477,99 @@ https://www.youtube.com/watch?v=RPNrhAHuPoQ&list=PLxQ8cCJ6LyOYCas1Ln-L8kCBquxw20
 */
 
 function findMinimumWindow(arr) {
+    let leftPointer = 0;
+    let rightPointer = arr.length - 1;
 
+    // Increment the leftPointer until an element is greater than its next
+    while (leftPointer < arr.length - 1 && arr[leftPointer] <= arr[leftPointer + 1]) {
+        leftPointer++;
+    }
 
+    // If array is already sorted
+    if (leftPointer === arr.length - 1) return 0;
+
+    // Decrement the rightPointer until an element is less than its previous
+    while (rightPointer > 0 && arr[rightPointer] >= arr[rightPointer - 1]) {
+        rightPointer--;
+    }
+
+    const subArr = arr.slice(leftPointer, rightPointer + 1);
+    const subArrMin = Math.min(...subArr);
+    const subArrMax = Math.max(...subArr);
+
+    // Extend window to the left to include elements greater than subArrMin
+    while (leftPointer > 0 && arr[leftPointer - 1] > subArrMin) {
+        leftPointer--;
+    }
+
+    // Extend window to the right to include elements less than subArrMax
+    while (rightPointer < arr.length - 1 && arr[rightPointer + 1] < subArrMax) {
+        rightPointer++;
+    }
+
+    return rightPointer - leftPointer + 1;
 }
+
 
 console.log(findMinimumWindow([1, 3, 2, 0, -1, 7, 10]))  // 5
 console.log(findMinimumWindow([1, 2, 5, 7, 3, 10, 11, 12])) // 3
-console.log(findMinimumWindow([1, 3, 2])) // 0
+console.log(findMinimumWindow([1, 2, 3])) // 0
 console.log(findMinimumWindow([4, 3, 2, 1])) // 4
+console.log(findMinimumWindow([12, 7, 8, 1, 2, 0, 10, 11])) // 8
+
+console.log('~~~~~~~~~~~~~~ Two Pointers Approach: MinimumWindow2 ~~~~~~~~~~~~~~~~');
+
+/*
+Create a Sorted Copy:
+
+const sortedCopy = [...arr].sort((a, b) => a - b);
+
+Makes a sorted copy of the original array to compare with.
+
+Left Pointer:
+
+while (left < arr.length && arr[left] === sortedCopy[left]) { left++; }
+
+Moves the left pointer to the first element that differs between the original and sorted arrays.
+
+Right Pointer:
+
+while (right > left && arr[right] === sortedCopy[right]) { right--; }
+
+Moves the right pointer to the last element that differs between the original and sorted arrays.
+
+Calculate Window Length:
+
+return right - left + 1;
+
+Returns the length of the window that needs sorting.
+
+
+*/
+
+function findMinimumWindow2(arr) {
+    let left = 0;
+    let right = arr.length - 1;
+    const sortedCopy = [...arr].sort((a, b) => a - b);  // Create a sorted copy of the array
+
+    // Increment the left pointer until the elements differ
+    while (left < arr.length && arr[left] === sortedCopy[left]) {
+        left++;
+    }
+
+    // Decrement the right pointer until the elements differ
+    while (right > left && arr[right] === sortedCopy[right]) {
+        right--;
+    }
+
+    // Return the length of the window
+    return right - left + 1;
+}
+
+
+// Testing
+console.log(findMinimumWindow2([1, 3, 2, 0, -1, 7, 10])); // 5
+console.log(findMinimumWindow2([1, 2, 5, 7, 3, 10, 11, 12])); // 3
+console.log(findMinimumWindow2([1, 3, 2])); // 2
+console.log(findMinimumWindow2([4, 3, 2, 1])); // 4
+console.log(findMinimumWindow2([12, 7, 8, 1, 2, 0, 10, 11])); // 8
