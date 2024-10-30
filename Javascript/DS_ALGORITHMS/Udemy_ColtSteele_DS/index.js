@@ -337,6 +337,7 @@ which accepts a sorted array and counts the unique values in an array.
 There can be a negative numbers in the array, but it will always be sorted
 */
 
+//no pointers here solved with methods.
 const countUniqueValues = (array) => {
     let count = 0;
 
@@ -350,6 +351,12 @@ const countUniqueValues = (array) => {
 };
 
 console.log('countUnquiqueValues:',countUniqueValues([1, 1, 1, 1, 1, 2])); // 2
+console.log('countUnquiqueValues:',countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
+console.log('countUnquiqueValues:',countUniqueValues([])); // 0
+console.log('countUnquiqueValues:',countUniqueValues([-2, -1, -1, 0, 1])); // 2
+
+
+
 
 const countUniqueValues2 = (array) => {
     let uniqueValues = new Set(array);
@@ -357,6 +364,51 @@ const countUniqueValues2 = (array) => {
 };
 
 console.log('countUniqueValues2:', countUniqueValues2([1, 1, 1, 1, 1, 2])); // 2
+
+/*
+1. Use two pointers that start from the beginning of the array.
+
+2 .Increment the second pointer to find unique values.
+
+3 .Update the first pointer when a unique value is found.
+
+In this approach:
+
+* Pointer i tracks unique elements.
+
+* Pointer j scans through the array.
+
+* When a new unique value is found at j, it's moved to the position at i + 1.
+*/
+
+const countUniqueValuesWPointers = (array) => {
+    if (array.length === 0) return 0;
+    
+    let i = 0; //tracks unique elements
+    
+    for (let j = 1; j < array.length; j++) {
+        if (array[i] !== array[j]) {
+            i++;
+            array[i] = array[j];
+        }
+        // console.log("i: ",i,"j: ",j)
+    }
+    
+    return i + 1; // since i is index-based, add 1 for count
+};
+
+// Test cases
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([1, 1, 1, 1, 1, 2])); // 2
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([1, 2, 3, 4, 5])); // 5
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([1, 2, 2, 2, 3, 4, 4])); // 4
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([1, 1, 1, 1, 1, 2])); // 2
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([])); // 0
+console.log('countUnquiqueValuesWPointers:',countUniqueValuesWPointers([-2, -1, -1, 0, 1])); // 4
+
+
+
+
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~ Multiple Pointers: findPair ~~~~~~~~~~~~~~~~~~~~~~');
 
