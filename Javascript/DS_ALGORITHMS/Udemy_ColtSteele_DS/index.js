@@ -848,7 +848,7 @@ So essentially, it's checking if the process of summing the squares of digits wi
 */
 
 console.log('~~~~~~~~~~~~~~ Sliding Window ~~~~~~~~~~~~~~~~');
-console.log('~~~~~~~~~~~~~~ Max Sub Array Sum ~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~ Max Sub Array Sum ~~~~~~~~~~~~~');
 
 /*
 ******************** Max Sub Array Sum ******************
@@ -857,10 +857,76 @@ and a number called n.  The function should calculate the maximum sum of n conse
 in the array.
 */
 
-console.log(maxSubArraySum([1,2,5,2,8,1,5], 2)) // 10
+const maxSubArraySum = (array, n) => {
+    if(array.length === 0) return null;
+
+    let maxSum = 0;
+    let windowSum = 0;
+
+    //calculate the sum of the first window
+    for (let i = 0; i < n; i++){
+        windowSum += array[i];
+    }
+
+    // Set the maxSum to the initial window sum
+    maxSum = windowSum;
+
+    // Slide the window one element at a time
+    for (let i = n; i < array.length; i++) {
+        windowSum += array[i] - array[i - n]; // slide the window
+        maxSum = Math.max(maxSum, windowSum);
+    }
+
+    return maxSum;
+}
+
+
+console.log('maxSubArray: ',maxSubArraySum([1,2,5,2,8,1,5], 2)) // 10
 console.log(maxSubArraySum([1,2,5,2,8,1,5], 4)) // 17
 console.log(maxSubArraySum([4,2,1,6], 1)) // 6
 console.log(maxSubArraySum([4,2,1,6,2], 4)) // 13
 console.log(maxSubArraySum([], 4)) // null
 
+
+console.log('~~~~~~~~~~~~~~ Divide & Conquer ~~~~~~~~~~~~~~~~');
+
+/*
+*************** Divide & Conquer ***************
+
+This Pattern involves dividing a dataset into smaller chunks and then repeating
+a process with a subset of data.
+
+This pattern can tremendously decreate time complexity
+*/
+
+/*
+Example:
+GIven a sorted array of integers, write a function called search
+that accepts a value and returns the index where the value passed to the function
+is located.  If the value is not found, return -1
+
+*/
+console.log('~~~~~~~~~~~~~~ Search for Index of Value ~~~~~~~~~~~~~~~~');
+
+const search = (arr, index) => {
+    return arr.indexOf(index);
+}
+  
+
+console.log(search([1, 2, 3, 4, 5, 6], 4)) // 3
+console.log(search([1, 2, 3, 4, 5, 6], 6)) // 5
+console.log(search([1, 2, 3, 4, 5 ,6], 11)) // -1
+
+const search2 = (arr, index) => {
+    for (let i = 0; i < arr.length; i++){
+        if(arr[i] === index) {
+            return i;
+        }
+    }
+    return -1; // not found
+}
+
+console.log(search2([1, 2, 3, 4, 5, 6], 4)) // 3
+console.log(search2([1, 2, 3, 4, 5, 6], 6)) // 5
+console.log(search2([1, 2, 3, 4, 5 ,6], 11)) // -1
 
