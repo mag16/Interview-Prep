@@ -845,11 +845,22 @@ Here’s a breakdown:
 * If either pointer reaches 1, the function returns true, indicating success.
 
 So essentially, it's checking if the process of summing the squares of digits will reach 1 (true) or fall into a loop (false).
-
-
-
-
 */
 
+console.log('~~~~~~~~~~~~~~ Sliding Window ~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~ Max Sub Array Sum ~~~~~~~~~~~~~~~~');
+
+/*
+******************** Max Sub Array Sum ******************
+Write a function called maxSubArraySum whiich accepts an array of integers
+and a number called n.  The function should calculate the maximum sum of n consecutive elements
+in the array.
+*/
+
+console.log(maxSubArraySum([1,2,5,2,8,1,5], 2)) // 10
+console.log(maxSubArraySum([1,2,5,2,8,1,5], 4)) // 17
+console.log(maxSubArraySum([4,2,1,6], 1)) // 6
+console.log(maxSubArraySum([4,2,1,6,2], 4)) // 13
+console.log(maxSubArraySum([], 4)) // null
 
 
