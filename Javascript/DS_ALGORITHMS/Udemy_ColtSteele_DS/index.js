@@ -1203,3 +1203,42 @@ console.log(minSubArrayLen([1,4,16,22,5,7,8,9,10],39)) // 3
 console.log(minSubArrayLen([1,4,16,22,5,7,8,9,10],55)) // 5
 console.log(minSubArrayLen([4, 3, 3, 8, 1, 2, 3], 11)) // 2
 console.log(minSubArrayLen([1,4,16,22,5,7,8,9,10],95)) // 0
+
+
+console.log('~~~~~~~~~~~~~~~ findLongestSubstring ~~~~~~~~~~~~~~~');
+
+const findLongestSubstring = (str) => {
+    let longest = 0; // Track the length of the longest substring
+    let seen = {}; // Store the last seen positions of characters
+    let start = 0; // Start index of the current substring
+
+    for (let i = 0; i < str.length; i++) {
+        let char = str[i]; // Current character
+
+        // If we have seen the character before
+        if (seen[char]) {
+            // Update the start position to be the maximum of current start and the last seen position of the character
+            start = Math.max(start, seen[char]);
+           // console.log(`Character ${char} seen before. Updating start to ${start}`);
+        }
+
+        // Calculate the length of the current substring and update longest
+        longest = Math.max(longest, i - start + 1);
+        //console.log(`Updated longest to ${longest}. Current substring: ${str.substring(start, i + 1)}`);
+
+        // Store the next position of the current character (i + 1 to avoid double counting)
+        seen[char] = i + 1;
+        //console.log(`Updating last seen position of character ${char} to ${i + 1}`);
+    }
+
+    return longest; // Return the length of the longest substring
+}
+
+// Example usage with logs
+console.log(findLongestSubstring("abcabcbb")); // Example: 3 ("abc")
+console.log(findLongestSubstring("hello world")); // 
+console.log(findLongestSubstring("abcabcbb")); // Example: 3 ("abc")
+console.log(findLongestSubstring("bbbbb")); // 1 ("b")
+console.log(findLongestSubstring("pwwkew")); // 3 ("wke")
+console.log(findLongestSubstring("")); // 0 (empty string)
+console.log(findLongestSubstring("dvdf")); // 3 ("vdf")
