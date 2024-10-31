@@ -1344,3 +1344,78 @@ function recursiveRange(n){
     if (n === 0) return 0; // Base case: when n is 0, return 0
     return n + recursiveRange(n - 1); // Recursive case: sum of n + the sum of all numbers before n
 }
+
+// reverse('awesome') // 'emosewa'
+// reverse('rithmschool') // 'loohcsmhtir'
+
+function reverse(str) {
+    if (str.length === 0) return '';
+    return reverse(str.slice(1)) + str.charAt(0);
+}
+
+/* 
+You
+use .slice?
+Copilot
+Absolutely! Using .slice() is a great approach to help break down the string into smaller parts for the recursive function. Here's how you can use .slice() in your recursive function:
+
+Concept:
+Base Case: If the string is empty (str.length === 0), return an empty string.
+
+Recursive Case: Take the last character of the string, and concatenate it with the reversed version of the remaining substring.
+
+Here’s how you can do it in pseudocode:
+
+Base Case: Check if the string is empty.
+
+Recursive Case: Slice the string to isolate the last character and the rest of the string.
+
+Using .slice():
+str.slice(1): This gives you the string without the first character.
+
+str.charAt(0): This gives you the first character of the string.
+
+Putting it all together:
+
+javascript
+
+Copy
+function reverseString(str) {
+    if (str.length === 0) return '';
+    return reverseString(str.slice(1)) + str.charAt(0);
+}
+How it Works:
+Base Case: When the string is empty, return an empty string.
+
+Recursive Case: Call the function with the rest of the string (str.slice(1)) 
+and append the first character (str.charAt(0)).
+
+So for the string "hello":
+
+reverseString("hello") -> reverseString("ello") + "h"
+
+reverseString("ello") -> reverseString("llo") + "e"
+
+reverseString("llo") -> reverseString("lo") + "l"
+
+reverseString("lo") -> reverseString("o") + "l"
+
+reverseString("o") -> reverseString("") + "o"
+
+Base case: return ""
+
+When combined back:
+
+"o" + "" = "o"
+
+"l" + "o" = "lo"
+
+"l" + "lo" = "llo"
+
+"e" + "llo" = "ello"
+
+"h" + "ello" = "olleh"
+
+*/
+
+
