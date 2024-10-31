@@ -1294,3 +1294,53 @@ const collectOddValues = (arr) => {
 }
 
 console.log(collectOddValues([1, 2, 3, 4, 5 ]))
+
+// power(2,0) // 1
+// power(2,2) // 4
+// power(2,4) // 16
+
+
+
+function power(b, e){
+    if (e == 0) return 1;
+    
+    return b * power(b, e - 1);
+    
+}
+
+// productOfArray([1,2,3]) // 6
+// productOfArray([1,2,3,10]) // 60
+
+function productOfArray(arr) {
+    let total = 1;
+    
+    for (let i = 0; i < arr.length; i++) {
+        total *= arr[i];
+    }
+    
+    return total;
+
+}
+
+function productOfArray2(arr) {
+    // Base case: when the array is empty, return 1
+    if (arr.length === 0) {
+        return 1;
+    }
+    // Recursive case: multiply the first element by the product of the rest of the array
+    return arr[0] * productOfArray(arr.slice(1));
+}
+
+// Example usage
+console.log(productOfArray2([1, 2, 3])); // Output: 6
+console.log(productOfArray2([1, 2, 3, 10])); // Output: 60
+
+
+// SAMPLE INPUT/OUTPUT
+// recursiveRange(6) // 21
+// recursiveRange(10) // 55
+
+function recursiveRange(n){
+    if (n === 0) return 0; // Base case: when n is 0, return 0
+    return n + recursiveRange(n - 1); // Recursive case: sum of n + the sum of all numbers before n
+}
