@@ -1242,3 +1242,36 @@ console.log(findLongestSubstring("bbbbb")); // 1 ("b")
 console.log(findLongestSubstring("pwwkew")); // 3 ("wke")
 console.log(findLongestSubstring("")); // 0 (empty string)
 console.log(findLongestSubstring("dvdf")); // 3 ("vdf")
+
+console.log('~~~~~~~~~~~~~~~ Recursion ~~~~~~~~~~~~~~~');
+/**
+ * 
+ recursion is essentially a function calling itself. 
+ It's a technique used in programming where a function calls itself 
+ directly or indirectly to solve a problem. The key components of recursion are:
+
+Base Case: This is the condition under which the recursive calls stop. 
+It's crucial to prevent infinite loops.
+
+Recursive Case: This is where the function calls itself with 
+modified arguments, inching closer to the base case with each call.
+ */
+function factorial(n) {
+    if (n === 0) { // Base case
+        return 1;
+    }
+    return n * factorial(n - 1); // Recursive call
+}
+
+console.log(factorial(5)); // Output: 120
+
+function factorialIterative(num) {
+    let total = 1;
+    for (let i = num; i > 0; i --) {
+        total *= i;
+    }
+
+    return total;
+};
+
+console.log(factorialIterative(4))
