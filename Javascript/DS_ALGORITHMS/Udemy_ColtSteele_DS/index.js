@@ -1418,4 +1418,21 @@ When combined back:
 
 */
 
+function isPalindrome(str) {
+    if (str.length === 0) return true; // Empty string is considered a palindrome
+
+    let reverseString = (str) => {
+        if (str.length === 0) return '';
+        return reverseString(str.slice(1)) + str.charAt(0);
+    };
+
+    const reversedStr = reverseString(str);
+    return str === reversedStr;
+}
+
+// Example usage
+console.log(isPalindrome("racecar")); // Output: true
+console.log(isPalindrome("hello")); // Output: false
+
+
 
