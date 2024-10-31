@@ -930,3 +930,141 @@ console.log(search2([1, 2, 3, 4, 5, 6], 4)) // 3
 console.log(search2([1, 2, 3, 4, 5, 6], 6)) // 5
 console.log(search2([1, 2, 3, 4, 5 ,6], 11)) // -1
 
+/*
+Write a function called sameFrequency. Given two positive integers, 
+find out if the two numbers have the same frequency of digits.
+
+Your solution MUST have the following complexities:
+
+Time: O(N)
+*/
+
+const sameFrequency = (a, b) => {
+a = a.toString();
+b = b.toString();
+
+// Check if strings have the same length
+if(a.length !== b.length) return false;
+// Initialize frequency counters for both strings
+let frequencyCounter1 = {};
+let frequencyCounter2 = {};
+// Populate frequencyCounter1 with character counts from a
+for (let val of a){
+    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;// Increment count or initialize to 1
+}
+
+// Populate frequencyCounter1 with character counts from b
+for (let val of b){
+    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+}
+
+ // Compare character counts in frequencyCounter1 and frequencyCounter2
+for (let key in frequencyCounter1) {
+    // Check if the key exists in frequencyCounter2
+    if (!(key in frequencyCounter2)) {
+        return false; // Return false if the key does not exist
+    }
+    // Compare counts for each character
+    if (frequencyCounter2[key] !== frequencyCounter1[key]) {
+        return false; // Return false if the counts do not match
+    }
+}
+
+// If all checks pass, the strings are anagrams
+return true;
+};
+
+console.log('Frequency Counter for 182, 281 :', sameFrequency(182, 281)); // true
+console.log('Frequency Counter for 34, 14 :', sameFrequency(34, 14)); // false
+console.log('Frequency Counter for 3589578, 5879385 :', sameFrequency(3589578, 5879385));  //true
+
+/*
+********** Problem *********
+Frequency Counter / Multiple Pointers - areThereDuplicates
+Implement a function called, areThereDuplicates which accepts a variable
+number of arguments, and checks whether there are any duplicates among the arguments passed in.  
+You can solve this using the frequency counter pattern OR the multiple pointers pattern.
+
+*/
+
+const areThereDuplicates =(...args) => {
+    if (args.length === 0) return false;
+
+    args.sort((a,b)=> b - a);
+    
+    let i = 0; //tracks unique elements
+    
+    for (let j = 1; j < args.length; j++) {
+        if (args[i] === args[j]) {
+            return true;
+        }
+    }
+    return false; 
+}
+
+console.log(areThereDuplicates(1, 2, 3)); // false
+console.log(areThereDuplicates(1, 2, 2)) // true 
+console.log(areThereDuplicates('a', 'b', 'c', 'a')) // true 
+
+function areThereDuplicatesWSet() {
+    return new Set(arguments).size !== arguments.length;
+}
+
+console.log(areThereDuplicatesWSet(1, 2, 3)); // false
+console.log(areThereDuplicatesWSet(1, 2, 2)) // true 
+console.log(areThereDuplicatesWSet('a', 'b', 'c', 'a')) // true 
+
+// areThereDuplicates Solution (Frequency Counter)
+function areThereDuplicates3() {
+    // Initialize an empty object to track occurrences
+    let collection = {};
+    
+    // Loop through all the arguments provided to the function
+    for(let val in arguments) {
+        // Increment the count for each argument, or set to 1 if it doesn't exist
+        collection[arguments[val]] = (collection[arguments[val]] || 0) + 1;
+    }
+    
+    // Loop through the keys in the collection
+    for(let key in collection) {
+        // Check if any value occurs more than once
+        if(collection[key] > 1) return true; // Duplicates found
+    }
+    
+    // Return false if no duplicates are found
+    return false;
+}
+
+// Example usage
+console.log(areThereDuplicates3(1, 2, 3)); // false
+console.log(areThereDuplicates3(1, 2, 2)); // true
+console.log(areThereDuplicates3('a', 'b', 'c', 'a')); // true
+
+console.log('~~~~~~~~~~~~~~~ Average Pair ~~~~~~~~~~~~~~~');
+
+const averagePair = (arr, targetAvg) => {
+    if (arr.length === 0) return false;
+
+    let left = 0;
+    let right = arr.length - 1;
+   
+    while(left < right) {
+        let average = (arr[left] + arr[right]) / 2;
+
+        if(average === targetAvg) {
+            return true;
+        }
+        else if (average > targetAvg){
+            right = right - 1;
+        } else if (average < targetAvg) {
+            left = left + 1; 
+        } 
+    }
+
+    return false;
+};
+
+console.log(averagePair([1,2,3],2.5)) // true
+console.log(averagePair([1,3,3,5,6,7,10,12,19],8)) // true
+console.log(averagePair([-1,0,3,4,5,6], 4.1)) // false
+console.log(averagePair([],4)) // false
