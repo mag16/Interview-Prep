@@ -1524,4 +1524,14 @@ function capitalizeFirst(arr) {
     return [capitalized, ...capitalizeFirst(arr.slice(1))];
 };
 
+/*
+arr[0]: Entire first string.
+
+arr[0].charAt(0).toUpperCase(): First character capitalized.
+
+arr[0].slice(1): Rest of the string.
+
+*/
+
 console.log(capitalizeFirst(['car','taco','banana'])); // ['Car','Taco','Banana']
+console.log(capitalizeFirst(['sony','tamron','canon'])); 
