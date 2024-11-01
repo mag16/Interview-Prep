@@ -1449,9 +1449,25 @@ when passed to the callback. Otherwise it returns false.
 // someRecursive([4,6,8,9], isOdd) // true
 // someRecursive([4,6,8], isOdd) // false
 // someRecursive([4,6,8], val => val > 10); // false
+console.log('~~~~~~~~~~~~~~~~~~~~~ someRecursive ~~~~~~~~~~~~~~')
 
-function someRecursive(){
-    // add whatever parameters you deem necessary - good luck!
-  }
+function someRecursive(arr, cb){
+   // Base case: if the array is empty
+   if (arr.length === 0) return false;
 
+   // Check the first element with the callback
+   if (cb(arr[0])) return true;
+   
+   // Otherwise, recurse with the rest of the array
+   return someRecursive(arr.slice(1), cb);
+
+};
+
+const isOdd = val => val % 2 !== 0;
+
+
+console.log(someRecursive([1,2,3,4], isOdd)) // true
+console.log(someRecursive([4,6,8,9], isOdd)) // true
+console.log(someRecursive([4,6,8], isOdd)) // false
+console.log(someRecursive([4,6,8], val => val > 10)); // false
 
