@@ -1471,3 +1471,57 @@ console.log(someRecursive([4,6,8,9], isOdd)) // true
 console.log(someRecursive([4,6,8], isOdd)) // false
 console.log(someRecursive([4,6,8], val => val > 10)); // false
 
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ flatten Array ~~~~~~~~~~~~~~')
+
+function flatten(arr){
+    // add whatever parameters you deem necessary - good luck!
+    let result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if(Array.isArray(arr[i])) {
+            result = result.concat(flatten(arr[i]))
+        } else {
+            result.push(arr[i])
+        }
+    }
+
+    return result;
+}
+  
+flatten([1, 2, 3, [4, 5] ]) // [1, 2, 3, 4, 5]
+flatten([1, [2, [3, 4], [[5]]]]) // [1, 2, 3, 4, 5]
+flatten([[1],[2],[3]]) // [1,2,3]
+flatten([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]) // [1,2,3
+
+  //with method
+function flatten2(arr){
+    // add whatever parameters you deem necessary - good luck!
+    return arr.flat();
+}
+
+  
+console.log(flatten2([1, 2, 3, [4, 5] ])) // [1, 2, 3, 4, 5]
+console.log(flatten2([1, [2, [3, 4], [[5]]]])) // [1, 2, 3, 4, 5]
+console.log(flatten2([[1],[2],[3]])) // [1,2,3]
+console.log(flatten2([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]])) // [1,2,3
+
+/*
+
+capitalizeFirst
+Write a recursive function called capitalizeFirst. 
+Given an array of strings, capitalize the first letter of each string in the array.
+*/
+
+function capitalizeFirst(arr) {
+    // Base case: if the array is empty
+    if (arr.length === 0) return [];
+
+    // Capitalize the first letter of the first string
+    const capitalized = arr[0].charAt(0).toUpperCase() + arr[0].slice(1);
+    
+    // Recursively call capitalizeFirst on the rest of the array
+    return [capitalized, ...capitalizeFirst(arr.slice(1))];
+};
+
+console.log(capitalizeFirst(['car','taco','banana'])); // ['Car','Taco','Banana']
