@@ -1472,7 +1472,7 @@ console.log(someRecursive([4,6,8], isOdd)) // false
 console.log(someRecursive([4,6,8], val => val > 10)); // false
 
 
-console.log('~~~~~~~~~~~~~~~~~~~~~ flatten Array ~~~~~~~~~~~~~~')
+console.log('~~~~~~~~~~~~~~~~~~~~~ flatten Array ~~~~~~~~~~~~~~');
 
 function flatten(arr){
     // add whatever parameters you deem necessary - good luck!
@@ -1535,3 +1535,57 @@ arr[0].slice(1): Rest of the string.
 
 console.log(capitalizeFirst(['car','taco','banana'])); // ['Car','Taco','Banana']
 console.log(capitalizeFirst(['sony','tamron','canon'])); 
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ nestedEvenSum ~~~~~~~~~~~~~~')
+
+/*
+nestedEvenSum
+Write a recursive function called nestedEvenSum. 
+Return the sum of all even numbers in an object 
+which may contain nested objects.
+
+*/
+
+function nestedEvenSum (obj) {
+    // add whatever parameters you deem necessary - good luck!
+    let sum = 0;
+
+    for (const val in obj) {
+        if (typeof obj[val] === "number" && obj[val] % 2 === 0) {
+            // If it's an even number, add it to the sum
+            sum += obj[val];
+
+        } else if (typeof obj[val] === "object" && obj[val] !== null) {
+            // If it's a nested object, make a recursive call
+            sum += nestedEvenSum(obj[val]);
+        }
+    }
+
+    return sum;
+}
+  
+  
+  let obj1 = {
+    outer: 2,
+    obj: {
+      inner: 2,
+      otherObj: {
+        superInner: 2,
+        notANumber: true,
+        alsoNotANumber: "yup"
+      }
+    }
+  }
+  
+  let obj2 = {
+    a: 2,
+    b: {b: 2, bb: {b: 3, bb: {b: 2}}},
+    c: {c: {c: 2}, cc: 'ball', ccc: 5},
+    d: 1,
+    e: {e: {e: 2}, ee: 'car'}
+  };
+  
+  console.log(nestedEvenSum(obj1)); // 6
+  console.log(nestedEvenSum(obj2)); // 10
+
+  
