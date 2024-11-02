@@ -1607,7 +1607,67 @@ function capitalizedWords(arr) {
       return [capitalized, ...capitalizedWords(arr.slice(1))];
 }
   
-  let words = ['i', 'am', 'learning', 'recursion'];
+  let words = ['i', 'am', 'learning', 'recursion', 'for', 'a', 'gig'];
   console.log(capitalizedWords(words)); // ['I', 'AM', 'LEARNING', 'RECURSION']
+
+/*
+stringifyNumbers
+Write a function called stringifyNumbers which takes in an object and finds 
+all of the values which are numbers and converts them to strings. 
+Recursion would be a great way to solve this!
+
+The exercise intends for you to create a new object with the numbers converted to strings, 
+and not modify the original. Keep the original object unchanged.
+
+*/
+
+const stringifyNumbers = (obj) => {
+    let newObj = {};
+
+    for (const val in obj) {
+        if (typeof obj[val] === "number") {
+            // Convert the number to a string and assign it to the new object
+            newObj[val] = obj[val].toString();
+        } else if (Array.isArray(obj[val])) {
+            // If it's an array, create a new array and map over its elements
+            newObj[val] = obj[val].map(item => 
+                typeof item === "number" ? item.toString() : item
+            );
+        } else if (typeof obj[val] === "object" && obj[val] !== null) {
+            // If it's a nested object, make a recursive call and assign the result
+            newObj[val] = stringifyNumbers(obj[val]);
+        } else {
+            // For other types, copy them as they are
+            newObj[val] = obj[val];
+        }
+    }
+
+    return newObj;
+}
+
+let objA = {
+    num: 1,
+    test: [],
+    data: {
+        val: 4,
+        info: {
+            isRight: true,
+            random: 66
+        }
+    }
+};
+let expextedOutput = {
+    num: "1",
+    test: [],
+    data: {
+        val: "4",
+        info: {
+            isRight: true,
+            random: "66"
+        }
+    }
+};
+
+console.log(stringifyNumbers(objA));
 
 
