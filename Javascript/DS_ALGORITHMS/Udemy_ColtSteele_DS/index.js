@@ -1588,6 +1588,9 @@ function nestedEvenSum (obj) {
   console.log(nestedEvenSum(obj1)); // 6
   console.log(nestedEvenSum(obj2)); // 10
 
+
+  console.log('~~~~~~~~~~~~~~~~~~~~~ capitalizeWords ~~~~~~~~~~~~~~')
+
 /*
 capitalizeWords
 
@@ -1607,8 +1610,10 @@ function capitalizedWords(arr) {
       return [capitalized, ...capitalizedWords(arr.slice(1))];
 }
   
-  let words = ['i', 'am', 'learning', 'recursion', 'for', 'a', 'gig'];
-  console.log(capitalizedWords(words)); // ['I', 'AM', 'LEARNING', 'RECURSION']
+let words = ['i', 'am', 'learning', 'recursion', 'for', 'a', 'gig'];
+console.log(capitalizedWords(words)); // ['I', 'AM', 'LEARNING', 'RECURSION']
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ stringifyNumbers ~~~~~~~~~~~~~~')
 
 /*
 stringifyNumbers
@@ -1669,5 +1674,38 @@ let expextedOutput = {
 };
 
 console.log(stringifyNumbers(objA));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ collectStrings ~~~~~~~~~~~~~~');
+
+/*
+collectStrings
+Write a function called collectStrings which accepts an object and 
+returns an array of all the values in the object that have a typeof string
+
+*/
+
+const collectStrings = (obj) => {
+
+
+
+};
+
+const obj = {
+    stuff: "foo",
+    data: {
+        val: {
+            thing: {
+                info: "bar",
+                moreInfo: {
+                    evenMoreInfo: {
+                        weMadeIt: "baz"
+                    }
+                }
+            }
+        }
+    }
+}
+
+collectStrings(obj) // ["foo", "bar", "baz"])
 
 
