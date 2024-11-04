@@ -1687,8 +1687,17 @@ returns an array of all the values in the object that have a typeof string
 const collectStrings = (obj) => {
     let newArr = [];
 
-
-
+    for (const val in obj) {
+        if (typeof obj[val] === "string") {
+            newArr.push(obj[val]);
+        } else if (typeof obj[val] === "object" && obj[val] !== null) {
+            // If it's a nested object, make a recursive call and assign the result
+            newArr.push(...collectStrings(obj[val]));
+        } 
+        
+    }
+    
+    return newArr;
 };
 
 const obj = {
@@ -1707,6 +1716,6 @@ const obj = {
     }
 }
 
-collectStrings(obj) // ["foo", "bar", "baz"])
+console.log('collectString function: ',collectStrings(obj)) // ["foo", "bar", "baz"])
 
 
