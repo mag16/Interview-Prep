@@ -1685,6 +1685,7 @@ returns an array of all the values in the object that have a typeof string
 */
 
 const collectStrings = (obj) => {
+    let newArr = [];
 
 
 
