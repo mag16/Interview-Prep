@@ -1693,8 +1693,7 @@ const collectStrings = (obj) => {
         } else if (typeof obj[val] === "object" && obj[val] !== null) {
             // If it's a nested object, make a recursive call and assign the result
             newArr.push(...collectStrings(obj[val]));
-        } 
-        
+        }        
     }
     
     return newArr;
