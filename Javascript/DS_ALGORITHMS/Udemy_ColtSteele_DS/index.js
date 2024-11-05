@@ -1969,6 +1969,8 @@ const selectionSort2 = (arr) => {
 
 console.log("Final sorted array w SS 2:", selectionSort2([29, 10, 14, 37, 13]));
 
+console.log('~~~~~~~~~~~~~~~~~~~~~ Insertion Sort ~~~~~~~~~~~~~~');
+
 
 
 
