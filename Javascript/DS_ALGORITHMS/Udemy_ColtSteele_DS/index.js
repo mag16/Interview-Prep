@@ -1834,3 +1834,141 @@ const naiveSearch = (long, short) => {
 };
 
 console.log("naiveSearch: ",naiveSearch("lorie loled", "lo"));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ Bubble Sort ~~~~~~~~~~~~~~');
+
+/*
+BubbleSprt Pseudocode
+
+* Start looping from with a variable called i the end of the array
+towards the beggining.
+
+* Start an inner loop with a variable called j from the beggining
+until i - 1.
+
+* if arr[j] is greater than arr[j + 1], swap those two values!
+
+* Return the sorted array.
+
+0(N^2)
+if data is nearly sorted it can be linear 0(N)
+
+*/
+
+const bubbleSort = (arr) => {
+    // Outer loop: iterate from the last element down to the first
+    // This controls the number of passes through the array
+    for (let i = arr.length - 1; i > 0; i--) {
+        // Inner loop: iterate from the start of the array up to the current 'i'
+        // This compares adjacent elements and swaps them if they are in the wrong order
+        for (let j = 0; j < i; j++) { // Start from index 0 to i
+            // If the current element is greater than the next element
+            if (arr[j] > arr[j + 1]) {
+                // Swap the two elements
+                let temp = arr[j]; // Store the current element in a temporary variable
+                arr[j] = arr[j + 1]; // Move the next element to the current position
+                arr[j + 1] = temp; // Place the temporary variable (the original current element) in the next position
+            }
+        }
+    }
+    // After all passes, the array is sorted
+    return arr; // Return the sorted array
+}
+
+
+console.log(bubbleSort([5, 3, 8, 1, 2])); // Expected output: [1, 2, 3, 5, 8]
+console.log(bubbleSort([1, 2, 3, 4, 5])); // Expected output: [1, 2, 3, 4, 5]
+console.log(bubbleSort([2, 2, 2, 2, 2])); // Expected output: [2, 2, 2, 2, 2]
+console.log(bubbleSort([-3, -1, -4, 0, -2])); // Expected output: [-4, -3, -2, -1, 0]
+console.log(bubbleSort([10, -1, 0, 3, 5])); // Expected output: [-1, 0, 3, 5, 10]
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ Selection Sort ~~~~~~~~~~~~~~');
+
+/*
+Selection Sort
+similart to bubble sort but instead of first
+placing large values into sorted position, it places small
+values into sorted position
+
+Pseudo Code -------->
+* Store the first element as the smallest value you seen so far.
+
+* Compare this item to the next item in the array until you find a smaller number.
+
+* if a smaller number is found, designate that smaller number to be the new minimum and continue
+until the end of the array.
+
+* if the minimum is not the value (index) you initially began with, swap the two values.
+
+* Repeat this with the next element until the array is sorted.
+
+0(N^2)
+
+*/
+
+const selectionSort = (arr) => {
+    // Outer loop: iterate over each element in the array
+    for (let i = 0; i < arr.length; i++) {
+        // Assume the current index 'i' has the lowest value
+        let lowest = i;
+        
+        // Inner loop: find the lowest value in the unsorted portion of the array
+        for (let j = i + 1; j < arr.length; j++) {
+            // If we find a value smaller than the current 'lowest', update 'lowest' to this index
+            if (arr[j] < arr[lowest]) {
+                lowest = j;
+            }
+        }
+
+        // Only swap if the lowest value is different from the current index 'i'
+        if (lowest !== i) {
+            let temp = arr[i];       // Temporarily store the value at index 'i'
+            arr[i] = arr[lowest];    // Move the lowest value found to index 'i'
+            arr[lowest] = temp;      // Place the original value of index 'i' in the lowest's original spot
+        }
+
+        // Log the array after each pass for clarity
+        console.log(`After pass ${i + 1}:`, arr);
+    }
+
+    // Return the sorted array after all passes
+    return arr;
+};
+
+// Test case
+console.log("Final sorted array:", selectionSort([29, 10, 14, 37, 13]));
+
+//W ES2016 swapping syntax
+
+const selectionSort2 = (arr) => {
+
+    const swap = (arr, idx1, idx2) => ([arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]])
+    // Outer loop: iterate over each element in the array
+    for (let i = 0; i < arr.length; i++) {
+        // Assume the current index 'i' has the lowest value
+        let lowest = i;
+        
+        // Inner loop: find the lowest value in the unsorted portion of the array
+        for (let j = i + 1; j < arr.length; j++) {
+            // If we find a value smaller than the current 'lowest', update 'lowest' to this index
+            if (arr[j] < arr[lowest]) {
+                lowest = j;
+            }
+        }
+
+        // Only swap if the lowest value is different from the current index 'i'
+        if (lowest !== i) swap(arr, i, lowest)
+
+        // Log the array after each pass for clarity
+        console.log(`After pass ${i + 1}:`, arr);
+    }
+
+    // Return the sorted array after all passes
+    return arr;
+};
+
+console.log("Final sorted array w SS 2:", selectionSort2([29, 10, 14, 37, 13]));
+
+
+
+
