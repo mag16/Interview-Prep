@@ -1818,27 +1818,37 @@ return the count.
 */
 
 const naiveSearch = (long, short) => {
-    let count = 0;
+    let count = 0;  // Initialize a counter to keep track of matches found
 
+    // Loop through each character in the `long` string
     for (let i = 0; i < long.length; i++) {
+        
+        // For each character in `long`, start a nested loop through `short`
         for (let j = 0; j < short.length; j++) {
-            if (short[j] !== long[i + j]){
+            
+            // Check if characters at `short[j]` and `long[i + j]` are the same
+            if (short[j] !== long[i + j]) {
+                // If not, break out of the inner loop as this is not a match
                 break;
             }
+
+            // If we've reached the end of `short` (i.e., found all characters in sequence)
             if (j === short.length - 1) {
-                count++;
+                count++;  // Increment the match counter
             }
         }
     }
-    return count;
+    
+    return count;  // Return the total number of times `short` appears in `long`
 };
+
 
 console.log("naiveSearch: ",naiveSearch("lorie loled", "lo"));
 
 console.log('~~~~~~~~~~~~~~~~~~~~~ Bubble Sort ~~~~~~~~~~~~~~');
 
 /*
-BubbleSprt Pseudocode
+BubbleSort Pseudocode
 
 * Start looping from with a variable called i the end of the array
 towards the beggining.
