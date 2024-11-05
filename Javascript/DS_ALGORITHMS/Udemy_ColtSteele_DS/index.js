@@ -1971,6 +1971,61 @@ console.log("Final sorted array w SS 2:", selectionSort2([29, 10, 14, 37, 13]));
 
 console.log('~~~~~~~~~~~~~~~~~~~~~ Insertion Sort ~~~~~~~~~~~~~~');
 
+/*
+Explanation
+Outer Loop (i): We start at the second element (i = 1) since we consider the first element already "sorted."
+Inner Loop (j): Moves backwards through the sorted portion of the array. Each element that’s larger than currentVal is shifted one position to the right to make room for currentVal.
+Inserting currentVal: After the for loop completes, j points to the position before the correct insertion spot for currentVal. So, arr[j + 1] is set to currentVal.
+Scope of j: j is declared with var, which allows it to be accessible after the for loop block and avoids the "undefined" error.
+This version should sort the array in-place. The algorithm has a time complexity of 
+𝑂(𝑛^2) in the worst case but is efficient for nearly sorted arrays.
+
+
+*/
+
+const insertionSort = (arr) => {
+    // Outer loop starts from the second element as the first element is considered "sorted"
+    for (var i = 1; i < arr.length; i++) {
+        let currentVal = arr[i];  // Store the current value to be placed in the sorted portion
+        
+        // Inner loop (using `var j` for function scope) moves backwards through the sorted portion
+        for (var j = i - 1; j >= 0 && arr[j] > currentVal; j--) {
+            arr[j + 1] = arr[j];  // Shift elements that are larger than `currentVal` one position to the right
+        }
+        
+        // Place `currentVal` in the correct position after shifting
+        arr[j + 1] = currentVal;
+    }
+    
+    return arr; // Return the sorted array
+};
+
+
+console.log("Sorted array w Insertion Sort:", insertionSort([2, 1, 9, 76, 4]));
+
+const insertionSort2 = (arr) => {
+    // Outer loop starts from the second element as the first element is considered "sorted"
+    for (let i = 1; i < arr.length; i++) {
+        let currentVal = arr[i];  // Store the current value
+        let j = i - 1;            // Start with the last sorted element
+        
+        // Inner loop shifts elements to the right until the correct position is found
+        while (j >= 0 && arr[j] > currentVal) {
+            arr[j + 1] = arr[j];  // Shift the element at 'j' to the right
+            j--;                  // Move left in the sorted portion
+        }
+        
+        // Place currentVal in its correct position after shifting
+        arr[j + 1] = currentVal;
+        
+        // Log the array to see each pass
+        console.log(`After pass ${i}:`, arr);
+    }
+    
+    return arr; // Return the sorted array
+};
+
+console.log("Sorted array w Insertion Sort 2:", insertionSort2([2, 1, 9, 76, 4]));
 
 
 
