@@ -1717,4 +1717,34 @@ const obj = {
 
 console.log('collectString function: ',collectStrings(obj)) // ["foo", "bar", "baz"])
 
+console.log('~~~~~~~~~~~~~~~~~~~~~ Searching Algorithms ~~~~~~~~~~~~~~');
+/*
+LINEAR SEARCH
+* This function accepts an array and a value
+* Loop through the array and check if the current array element is equal to the value
+* if it is, return the index at hich the element is found
+* if the value is never found, return -1 
 
+Linear Search Exercise
+
+Write a function called linearSearch which accepts an array and a value, 
+and returns the index at which the value exists. If the value does not exist in the array, return -1.
+
+Don't use indexOf to implement this function!
+
+O(N)
+*/
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ linear Search ~~~~~~~~~~~~~~');
+
+const linearSearch = (arr, val) => {
+
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i] === val) {
+            return i;
+        }
+    }
+     return -1;
+}
+
+console.log(linearSearch([1,2,3,4,111,53,21,5], 53));
