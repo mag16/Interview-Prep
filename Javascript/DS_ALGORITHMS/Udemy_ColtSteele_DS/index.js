@@ -1804,4 +1804,33 @@ binarySearch([
   40, 44, 64, 79, 84, 86, 95, 96, 98, 99
 ], 100) // -1
 
-console.log('~~~~~~~~~~~~~~~~~~~~~ binary Search ~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~ naive String Search ~~~~~~~~~~~~~~');
+
+/*
+Loop over the long string
+Loop over the short string
+if the characters dont match, break out of the inner loop
+if the characters do match, keep going
+if you complete the iner loop and find a match,
+increment the count of matches
+return the count.
+
+*/
+
+const naiveSearch = (long, short) => {
+    let count = 0;
+
+    for (let i = 0; i < long.length; i++) {
+        for (let j = 0; j < short.length; j++) {
+            if (short[j] !== long[i + j]){
+                break;
+            }
+            if (j === short.length - 1) {
+                count++;
+            }
+        }
+    }
+    return count;
+};
+
+console.log("naiveSearch: ",naiveSearch("lorie loled", "lo"));
