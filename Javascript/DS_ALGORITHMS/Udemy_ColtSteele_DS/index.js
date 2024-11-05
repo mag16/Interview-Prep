@@ -1942,7 +1942,7 @@ console.log("Final sorted array:", selectionSort([29, 10, 14, 37, 13]));
 
 const selectionSort2 = (arr) => {
 
-    const swap = (arr, idx1, idx2) => ([arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]])
+    const swap = (arr, idx1, idx2) => ([arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]]);
     // Outer loop: iterate over each element in the array
     for (let i = 0; i < arr.length; i++) {
         // Assume the current index 'i' has the lowest value
