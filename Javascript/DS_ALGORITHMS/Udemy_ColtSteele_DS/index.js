@@ -1853,6 +1853,9 @@ until i - 1.
 0(N^2)
 if data is nearly sorted it can be linear 0(N)
 
+time complexity: O(N^2)
+space complexity: O(1)
+
 */
 
 const bubbleSort = (arr) => {
@@ -1902,7 +1905,8 @@ until the end of the array.
 
 * Repeat this with the next element until the array is sorted.
 
-0(N^2)
+time complexity: O(N^2)
+space complexity: O(1)
 
 */
 
@@ -1979,6 +1983,9 @@ Inserting currentVal: After the for loop completes, j points to the position bef
 Scope of j: j is declared with var, which allows it to be accessible after the for loop block and avoids the "undefined" error.
 This version should sort the array in-place. The algorithm has a time complexity of 
 𝑂(𝑛^2) in the worst case but is efficient for nearly sorted arrays.
+
+time complexity: O(N^2)
+space complexity: O(1)
 
 
 */
