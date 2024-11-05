@@ -1764,6 +1764,8 @@ This algorithm should be more efficient than linearSearch - you can read how to 
  here - https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search 
  and here - https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/
 
+ 0(log n)
+
 */
 
 const binarySearch = (arr, val) => {
@@ -1801,3 +1803,5 @@ binarySearch([
   5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 
   40, 44, 64, 79, 84, 86, 95, 96, 98, 99
 ], 100) // -1
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ binary Search ~~~~~~~~~~~~~~');
