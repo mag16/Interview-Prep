@@ -2193,7 +2193,12 @@ both the left and right sides of the pivot.
 The recursion continues until each subarray has one or zero elements, at which point 
 the array is sorted.
 
+Time Complexity O(N^2)
+Space Complexity O(log n)
+
 */
 
 console.log('quickSort :', quickSort([4, 6, 9, 1, 2, 5]));
 console.log('quickSort :', quickSort([100, -3, 2, 4, 6, 1 ,2, 5, 3 ,23]));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ Radix Sort ~~~~~~~~~~~~~~');
