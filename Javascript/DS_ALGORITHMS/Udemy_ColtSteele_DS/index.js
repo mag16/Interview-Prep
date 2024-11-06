@@ -2045,4 +2045,82 @@ const insertionSort2 = (arr) => {
 console.log("Sorted array w Insertion Sort 2:", insertionSort2([2, 1, 9, 76, 4]));
 
 
+console.log('~~~~~~~~~~~~~~~~~~~~~ Merge Sort ~~~~~~~~~~~~~~');
+/*
+Merging Arrays
 
+* In orderto implement merge sort, its useful to first implement a function
+responsible for merging two sorted arrays.
+
+* Given two arrays which are sorted, this helper function should create a new array which is also sorted
+and consists of all the elements in the two input arrays.
+
+* This function should run in O(n + m) time and O(n + m) space and should not modify the parameters passed to it.
+
+PseudoCode:
+* Create an empty array take a look at the smallest values in each input array
+
+* While there are still values we havent looked at....
+    * If the value in the first array is smaller than the value in
+      the second array, push the value tin the first array into our results and move
+      on to the next value in the first array.
+
+    * If the value in the first array is larger than the value in the second array, push the value in the second array
+      into our results and move on to the next value in the second array.
+
+    * Once we exhaust one array, push in all the remaining values from the other array.
+*/
+
+// Helper function that merges two sorted arrays
+const merge = (array1, array2) => {
+    let result = []; // Array to store the merged result
+    let i = 0; // Pointer for array1
+    let j = 0; // Pointer for array2
+
+    // Compare elements from both arrays and add the smaller one to `result`
+    while (i < array1.length && j < array2.length) {
+        if (array2[j] > array1[i]) {
+            result.push(array1[i]); // Add array1's element if it's smaller
+            i++; // Move pointer i forward
+        } else {
+            result.push(array2[j]); // Add array2's element if it's smaller
+            j++; // Move pointer j forward
+        }
+    }
+
+    // Add any remaining elements from array1 (if any)
+    while (i < array1.length) {
+        result.push(array1[i]);
+        i++;
+    }
+
+    // Add any remaining elements from array2 (if any)
+    while (j < array2.length) {
+        result.push(array2[j]);
+        j++;
+    }
+
+    return result; // Return the sorted, merged array
+};
+
+// Recursive function that implements merge sort
+const mergeSort = (arr) => {
+    // Base case: if array has 1 or fewer elements, it’s already sorted
+    if (arr.length <= 1) return arr;
+
+    // Calculate the midpoint of the array
+    let mid = Math.floor(arr.length / 2);
+
+    // Recursively sort the left half
+    let left = mergeSort(arr.slice(0, mid));
+
+    // Recursively sort the right half
+    let right = mergeSort(arr.slice(mid));
+
+    // Merge the sorted halves
+    return merge(left, right);
+};
+
+
+console.log('MergeSort : ',mergeSort([1, 10, 50,2,14,99,100]));
+console.log('MergeSort : ',mergeSort([10, 24, 76, 73, 72, 1, 9]));
