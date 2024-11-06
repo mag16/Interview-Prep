@@ -2124,3 +2124,71 @@ const mergeSort = (arr) => {
 
 console.log('MergeSort : ',mergeSort([1, 10, 50,2,14,99,100]));
 console.log('MergeSort : ',mergeSort([10, 24, 76, 73, 72, 1, 9]));
+
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ Quick Sort ~~~~~~~~~~~~~~');
+
+ // Helper function to perform partitioning around the pivot
+const pivot = (arr, start = 0, end = arr.length - 1) => {
+    // Swap function to exchange elements in the array
+    const swap = (arr, idx1, idx2) => {
+        [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]]; // Swap the values at idx1 and idx2
+    };
+
+    // The pivot is chosen as the first element in the array (start)
+    let pivot = arr[start];
+    let swapIdx = start; // Initialize swapIdx to be the same as the pivot position
+
+    // Iterate through the array from start + 1 to end
+    for (let i = start + 1; i <= end; i++) {
+        // If the current element is smaller than the pivot, we increment swapIdx
+        // and swap the element at index i with the element at swapIdx
+        if (pivot > arr[i]) {
+            swapIdx++;
+            swap(arr, swapIdx, i); // Swap the elements
+        }
+    }
+
+    // After the loop, we swap the pivot element with the element at swapIdx
+    // This places the pivot in its correct sorted position
+    swap(arr, start, swapIdx);
+
+    // Return the pivot index, which is now in the correct position
+    return swapIdx;
+}
+
+// Main quicksort function
+const quickSort = (arr, left = 0, right = arr.length - 1) => {
+    // Base case: if the array has more than one element (left < right)
+    if(left < right) {
+        // Perform partitioning and get the index where the pivot should go
+        let pivotIndex = pivot(arr, left, right);
+
+        // Recursively sort the left portion of the array (before the pivot)
+        quickSort(arr, left, pivotIndex - 1);
+
+        // Recursively sort the right portion of the array (after the pivot)
+        quickSort(arr, pivotIndex + 1, right);
+    }
+
+    // Return the sorted array after the recursive sorting
+    return arr;
+}
+
+/*
+pivot function:
+
+This function is responsible for partitioning the array around a pivot element. It moves elements smaller than the pivot to the left side and larger ones to the right side.
+The pivot is always chosen as the first element in the current subarray (arr[start]).
+After partitioning, it places the pivot in its correct position and returns the pivot index.
+quickSort function:
+
+This is the main recursive function for sorting the array.
+It checks if the array portion has more than one element (i.e., left < right).
+It calls the pivot function to find the correct position for the pivot and recursively sorts both the left and right sides of the pivot.
+The recursion continues until each subarray has one or zero elements, at which point the array is sorted.
+
+*/
+
+console.log('quickSort :', quickSort([4, 6, 9, 1, 2, 5]));
+console.log('quickSort :', quickSort([100, -3, 2, 4, 6, 1 ,2, 5, 3 ,23]));
