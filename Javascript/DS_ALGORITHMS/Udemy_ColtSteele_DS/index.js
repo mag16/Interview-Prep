@@ -2178,15 +2178,20 @@ const quickSort = (arr, left = 0, right = arr.length - 1) => {
 /*
 pivot function:
 
-This function is responsible for partitioning the array around a pivot element. It moves elements smaller than the pivot to the left side and larger ones to the right side.
+This function is responsible for partitioning the array around a pivot element. It moves elements
+smaller than the pivot to the left side and larger ones to the right side.
 The pivot is always chosen as the first element in the current subarray (arr[start]).
 After partitioning, it places the pivot in its correct position and returns the pivot index.
+
+
 quickSort function:
 
 This is the main recursive function for sorting the array.
 It checks if the array portion has more than one element (i.e., left < right).
-It calls the pivot function to find the correct position for the pivot and recursively sorts both the left and right sides of the pivot.
-The recursion continues until each subarray has one or zero elements, at which point the array is sorted.
+It calls the pivot function to find the correct position for the pivot and recursively sorts
+both the left and right sides of the pivot.
+The recursion continues until each subarray has one or zero elements, at which point 
+the array is sorted.
 
 */
 
