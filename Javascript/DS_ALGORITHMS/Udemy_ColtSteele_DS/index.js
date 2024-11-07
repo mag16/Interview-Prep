@@ -2202,3 +2202,71 @@ console.log('quickSort :', quickSort([4, 6, 9, 1, 2, 5]));
 console.log('quickSort :', quickSort([100, -3, 2, 4, 6, 1 ,2, 5, 3 ,23]));
 
 console.log('~~~~~~~~~~~~~~~~~~~~~ Radix Sort ~~~~~~~~~~~~~~');
+
+/*
+RADIX SORT
+****** PseudoCode *******
+* Define a function that defines a list of numbers
+* Figure out how many digits the largest number has
+* Loop from k = 0 up to this largest number of digits
+* for each itertion of the loop:
+    * Create buckets for each digit (0 to 9)
+    * Place each number in the correspoding bucket based on its kth digit
+* Replace our existing array with values in our buckets, starting with 0 and going up to 0
+* return list at the end!
+
+Time Complexity: O(n*k)
+Space Complexity: O(n + k)
+
+*/
+
+// Helper function to get the digit at a specific place value
+const getDigit = (num, i) => {
+    // Extracts the digit at the ith position from the right
+    return Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
+};
+
+// Helper function to count the number of digits in a number
+const digitCount = (num) => {
+    // Special case for zero (0 has one digit)
+    if (num === 0) return 1;
+    // Calculates the number of digits by taking log10 and adding 1
+    return Math.floor(Math.log10(Math.abs(num))) + 1;
+};
+
+// Function to find the maximum number of digits in an array of numbers
+const mostDigits = (nums) => {
+    let maxDigits = 0;
+    // Loops through each number to find the maximum digit length
+    for (let i = 0; i < nums.length; i++) {
+        maxDigits = Math.max(maxDigits, digitCount(nums[i]));
+    }
+    return maxDigits;
+};
+
+// Main radix sort function
+const radixSort = (nums) => {
+    // Determine the maximum number of digits in the array
+    let maxDigitCount = mostDigits(nums);
+
+    // Iterate through each digit position (from least significant to most significant)
+    for (let k = 0; k < maxDigitCount; k++) {
+        // Create buckets for each digit (0 through 9)
+        let digitBuckets = Array.from({ length: 10 }, () => []);
+
+        // Place each number in the appropriate bucket based on the current digit
+        for (let i = 0; i < nums.length; i++) {
+            let digit = getDigit(nums[i], k); // Get the kth digit of the number
+            digitBuckets[digit].push(nums[i]); // Place number in the corresponding bucket
+        }
+
+        // Concatenate all buckets back into the nums array
+        nums = [].concat(...digitBuckets);
+    }
+
+    // Return the sorted array after all digit positions have been processed
+    return nums;
+}
+
+
+console.log('RadixSort',radixSort([23, 567, 89, 12224224, 90]))
