@@ -2268,4 +2268,81 @@ const radixSort = (nums) => {
 }
 
 
-console.log('RadixSort',radixSort([23, 567, 89, 12224224, 90]))
+console.log('RadixSort',radixSort([23, 567, 89, 12224224, 90]));
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ JS Classes ~~~~~~~~~~~~~~');
+
+/*
+*  Classes are blueprints that when created make objexts known as instances
+
+*  Classes are created with the new keyword.
+
+*  The constructor function is a special function that gets run when 
+   the class is instantiated
+
+* Instance methods can de added to classes similar to methods in objects
+
+*  Class methods can be added using the static keyword
+
+*/
+
+// declaration
+/*
+class Student {
+    constructor(firstName, lastName, year) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.grade = year;
+    }
+};
+*/
+
+// Expression; the class is anonymous but assigned to a variable
+const Student2 = class {
+    constructor (firstName, lastName, year) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.grade = year;
+    }
+};
+
+// Expression; the class has its own name
+const Rectangle = class Rectangle2 {
+    constructor(height, width) {
+      this.height = height;
+      this.width = width;
+    }
+  };
+
+class Student {
+    constructor(firstName, lastName, year) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.grade = year;
+        this.tardies = 0;
+    }
+
+    fullName() {
+        return `Your full name is ${this.firstName} ${this.lastName}`;
+    }
+
+    markLate() {
+        this.tardies += 1;
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    addScore(){
+        this.scores.push(score);
+        return this.scores;
+    }
+
+    calculateAverage(){
+        let sum = this.scores.reduce(function(a,b) { return a + b; })
+        return sum / this.scores.length;
+    }
+};
+
+let firstStudent = new Student("Marco", "Guzman", 1);
+let secondStudent = new Student("Joe", "Mama", 2);
+
+console.log('~~~~~~~~~~~~~~~~~~~~~ LinkedList ~~~~~~~~~~~~~~');
