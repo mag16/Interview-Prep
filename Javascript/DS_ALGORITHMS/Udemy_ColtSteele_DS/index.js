@@ -1997,7 +1997,6 @@ This version should sort the array in-place. The algorithm has a time complexity
 time complexity: O(N^2)
 space complexity: O(1)
 
-
 */
 
 const insertionSort = (arr) => {
