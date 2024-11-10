@@ -2346,3 +2346,249 @@ let firstStudent = new Student("Marco", "Guzman", 1);
 let secondStudent = new Student("Joe", "Mama", 2);
 
 console.log('~~~~~~~~~~~~~~~~~~~~~ LinkedList ~~~~~~~~~~~~~~');
+
+/*
+*********** LINKED LISTS *********
+
+* A data structure that contains a head, tail and length property.
+
+* Linked Lists consis of nodes, and each node has a value and a pointer to another node 
+or null
+
+Head                Tail  
+(4)--->(6)--->(8)--->(2)-->null
+  next    next   next
+
+Comparisons with Arrays
+
+         *** Lists ***
+         * Do not have indexes
+         * Connected via nodes with a next pointer
+         * Random access is not allowed
+         
+        *** Arrays ***
+        * Indexed in order
+        * Insertion and deletion can be expesive
+        * Can quickly be aacessed at a specific index
+    
+Big O:
+Access: O(N)
+Search: O(N)
+Insert: O(1)
+Delete: O(1)
+*/
+
+class NodeLL {
+    constructor(val) {
+        this.val = val;  // Store the value of the node
+        this.next = null;  // The next property points to the next node in the list
+    }
+};
+
+class SinglyLinkedList {
+    constructor() {
+        this.head = null;  // Start with no head node
+        this.tail = null;  // Start with no tail node
+        this.length = 0;  // Track the length of the list
+    }
+
+    // Adds a new node with value `val` to the end of the list
+    push(val) {
+        let newNode = new Node(val);  // Create a new node
+        if(!this.head) {  // If the list is empty
+            this.head = newNode;  // Set new node as head
+            this.tail = this.head;  // Set the same node as tail
+        } else {  // If the list is not empty
+            this.tail.next = newNode;  // Link the current tail to the new node
+            this.tail = newNode;  // Update tail to be the new node
+        }
+        this.length++;  // Increment the length of the list
+        return this;  // Return the entire list for chaining
+    }
+
+    // Removes the last node from the list
+    pop() {
+        if(!this.head) return undefined;  // If the list is empty, return undefined
+        let current = this.head;  // Start from the head
+        let newTail = current;  // Track the node before the current tail
+        while(current.next) {  // Traverse until the end of the list
+            newTail = current;  // Move newTail to current node
+            current = current.next;  // Move to the next node
+        }
+        this.tail = newTail;  // Set the new tail
+        this.tail.next = null;  // Remove the last node
+        this.length--;  // Decrement the length of the list
+        if(this.length === 0) {  // If the list is empty after the pop
+            this.head = null;  // Set head to null
+            this.tail = null;  // Set tail to null
+        }
+        return current;  // Return the removed node
+    }
+
+    // Removes the first node (head) from the list
+    shift() {
+        if(!this.head) return undefined;  // If the list is empty, return undefined
+        let currentHead = this.head;  // Store the current head
+        this.head = currentHead.next;  // Move head to the next node
+        this.length--;  // Decrement the length of the list
+        if(this.length === 0) {  // If the list is now empty
+            this.tail = null;  // Set tail to null
+        }
+        return currentHead;  // Return the removed node
+    }
+
+    // Adds a new node with value `val` at the start of the list
+    unshift(val) {
+        let newNode = new Node(val);  // Create a new node
+        if(!this.head) {  // If the list is empty
+            this.head = newNode;  // Set new node as head
+            this.tail = this.head;  // Set new node as tail
+        } else {  // If list is not empty
+            newNode.next = this.head;  // Link new node to current head
+            this.head = newNode;  // Update head to be the new node
+        }
+        this.length++;  // Increment the length of the list
+        return this;  // Return the list for chaining
+    }
+
+    // Retrieves the node at the specified index in the list
+    get(index) {
+        // If index is out of bounds (negative or greater than or equal to list length), return null
+        if (index < 0 || index >= this.length) return null;
+
+        let counter = 0; // Initialize a counter to track our position
+        let current = this.head; // Start from the head of the list
+
+        // Traverse the list until we reach the specified index
+        while (counter !== index) {
+            current = current.next; // Move to the next node
+            counter++; // Increment the counter
+        }
+
+         // Return the node at the specified index
+        return current;
+    }
+
+    // Inserts a new node with the given value at the specified index in the list
+    insert(index, val) {
+        // If the index is out of bounds, return false
+        if (index < 0 || index > this.length) return false;
+
+        // If inserting at the end, use push and return true (converted from boolean)
+        if (index === this.length) return !!this.push(val);
+
+        // If inserting at the beginning, use unshift and return true (converted from boolean)
+        if (index === 0) return !!this.unshift(val);
+
+        // Create a new node with the given value
+        let newNode = new Node(val);
+
+        // Get the node right before the desired index using the get method
+        let prev = this.get(index - 1);
+
+        // Store the current next node in a temporary variable
+        let temp = prev.next;
+
+        // Link the previous node to the new node
+        prev.next = newNode;
+
+        // Link the new node to the next node (temp)
+        newNode.next = temp;
+
+        // Increase the list length since a new node was added
+        this.length++;
+
+        // Return true to indicate success
+        return true;
+    }
+
+    // Removes the node at the specified index in the list
+    remove(index) {
+        // If the index is out of bounds, return undefined
+        if (index < 0 || index >= this.length) return undefined;
+
+        // If removing the first node, use shift to remove and return it
+        if (index === 0) return this.shift();
+
+        // If removing the last node, use pop to remove and return it
+        if (index === this.length - 1) return this.pop();
+
+        // For any other index, get the node just before the one to be removed
+        let previousNode = this.get(index - 1);
+
+        // Store the node to be removed
+        let removed = previousNode.next;
+
+        // Update the previous node’s next pointer to skip the removed node
+        previousNode.next = removed.next;
+
+        // Decrease the list length since a node was removed
+        this.length--;
+
+        // Return the removed node
+        return removed;
+    }
+
+    // Reverses the linked list in place
+reverse() {
+    // Start with the current head node
+    let node = this.head;
+
+    // Swap head and tail pointers
+    this.head = this.tail;
+    this.tail = node;
+
+    let next; // Placeholder for the next node in the list
+    let prev = null; // Initialize previous node as null (new tail’s next pointer)
+
+    // Loop through each node in the list
+    for (let i = 0; i < this.length; i++) {
+        // Save the next node temporarily
+        next = node.next;
+
+        // Reverse the 'next' pointer to point to the previous node
+        node.next = prev;
+
+        // Move `prev` and `node` one step forward
+        prev = node;  // `prev` now points to the current node
+        node = next;  // `node` advances to the original next node
+    }
+
+    // Return the reversed list
+    return this;
+}
+
+
+    print(){
+        let arr = [];
+        let current = this.head;
+        while(current){
+            arr.push(current.val)
+            current = current.next
+        }
+        console.log(arr);
+    }
+
+
+};
+
+
+let first = new NodeLL("Hi");
+first.next = new NodeLL("There");
+first.next.next = new NodeLL("how")
+first.next.next.next = new NodeLL("are")
+first.next.next.next.next = new NodeLL("you")
+console.log(first)
+
+
+
+
+let list = new SinglyLinkedList()
+list.push("Hello");
+list.push("GOODBYE");
+list.push(100);
+list.push(200);
+list.push(250);
+list.push(350);
+list.print();
+//console.log(print);
