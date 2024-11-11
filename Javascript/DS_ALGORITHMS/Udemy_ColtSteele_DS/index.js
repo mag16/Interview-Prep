@@ -2913,4 +2913,20 @@ Doublylist.shift();
 console.log(Doublylist);
 
 
-console.log("~~~~~~~~~~~~~~~~~~~~~ Doubly Linked List ~~~~~~~~~~~~~~");
+console.log("~~~~~~~~~~~~~~~~~~~~~ Stack ~~~~~~~~~~~~~~");
+
+class StackNode {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+};
+
+class Stack {
+    constructor() {
+        this.head = null;
+        this.tail = nulll
+        this.size = 0;
+    }
+};
+
