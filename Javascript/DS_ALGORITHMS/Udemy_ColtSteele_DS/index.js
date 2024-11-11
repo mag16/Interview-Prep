@@ -2677,7 +2677,6 @@ Insert: O(1)
 Delete: O(1)
 */
 
-
 class DoublyNode {
   constructor(val) {
     this.val = val; // Store the value of the node
@@ -2912,7 +2911,6 @@ Doublylist.push("Hermione");
 Doublylist.shift();
 console.log(Doublylist);
 
-
 console.log("~~~~~~~~~~~~~~~~~~~~~ Stack ~~~~~~~~~~~~~~");
 /*
 Big O
@@ -2930,62 +2928,60 @@ They are not built in date structure in JS but are simple to implement.
 
 */
 
-
-
 class StackNode {
-    constructor(value) {
-        this.value = value;
-        this.next = null;
-    }
-};
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
 
 class Stack {
-    constructor() {
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
+  push(val) {
+    // Create a new node with the given value
+    let newNode = new StackNode(val);
+
+    // If the stack is empty (no head node), set both head and tail to the new node
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // If the stack has nodes, set the new node's next to point to the current head
+      let temp = this.head;
+      this.head = newNode;
+      this.head.next = temp; // Link the new node to the previous head, placing it on top
     }
 
-    push(val) {
-        // Create a new node with the given value
-        let newNode = new StackNode(val);
-        
-        // If the stack is empty (no head node), set both head and tail to the new node
-        if (!this.head) {
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            // If the stack has nodes, set the new node's next to point to the current head
-            let temp = this.head;
-            this.head = newNode;
-            this.head.next = temp; // Link the new node to the previous head, placing it on top
-        }
-        
-        // Increment the size of the stack and return the new size
-        return ++this.size;
+    // Increment the size of the stack and return the new size
+    return ++this.size;
+  }
+  pop() {
+    // If the stack is empty, return null
+    if (!this.head) return null;
+
+    // Store the current head in a temporary variable
+    let temp = this.head;
+
+    // If there is only one node (head and tail are the same), set tail to null
+    if (this.head === this.tail) {
+      this.tail = null;
     }
-    pop() {
-        // If the stack is empty, return null
-        if (!this.head) return null;
-        
-        // Store the current head in a temporary variable
-        let temp = this.head;
-        
-        // If there is only one node (head and tail are the same), set tail to null
-        if (this.head === this.tail) {
-            this.tail = null;
-        }
-        
-        // Move the head pointer to the next node (removing the current top)
-        this.head = this.head.next;
-        
-        // Decrease the size of the stack
-        this.size--;
-        
-        // Return the value of the removed node
-        return temp.value;
-    }
-};
+
+    // Move the head pointer to the next node (removing the current top)
+    this.head = this.head.next;
+
+    // Decrease the size of the stack
+    this.size--;
+
+    // Return the value of the removed node
+    return temp.value;
+  }
+}
 
 // Test the Stack with some data
 let stack = new Stack();
@@ -3003,7 +2999,6 @@ console.log(stack.pop()); // Should print null (stack is now empty)
 stack.push(40);
 console.log(stack.size); // Should print 1 (only one item, 40, in the stack)
 
-
 console.log("~~~~~~~~~~~~~~~~~~~~~ Queue ~~~~~~~~~~~~~~");
 /*
 *************** QUEUE ***************
@@ -3020,59 +3015,59 @@ printing/task processing
 */
 
 class QueueNode {
-    constructor(value) {
-        this.value = value;
-        this.next = null;
-    }
-};
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
 
 class Queue {
-    constructor() {
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
+  enqueue(val) {
+    // Create a new node with the given value
+    let newNode = new QueueNode(val);
+
+    // If the queue is empty, set both head and tail to the new node
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // Otherwise, add the new node to the end of the queue and update the tail
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
 
-    enqueue(val) {
-        // Create a new node with the given value
-        let newNode = new QueueNode(val);
-    
-        // If the queue is empty, set both head and tail to the new node
-        if (!this.head) {
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            // Otherwise, add the new node to the end of the queue and update the tail
-            this.tail.next = newNode;
-            this.tail = newNode;
-        }
-    
-        // Increment the size of the queue and return the new size
-        return ++this.size;
+    // Increment the size of the queue and return the new size
+    return ++this.size;
+  }
+
+  dequeue() {
+    // If the queue is empty, return null
+    if (!this.head) return null;
+
+    // Store the current head to return its value later
+    let temp = this.head;
+
+    // If there's only one item, set both head and tail to null
+    if (this.head === this.tail) {
+      this.tail = null;
     }
-    
-    dequeue() {
-        // If the queue is empty, return null
-        if (!this.head) return null;
-    
-        // Store the current head to return its value later
-        let temp = this.head;
-    
-        // If there's only one item, set both head and tail to null
-        if (this.head === this.tail) {
-            this.tail = null;
-        }
-    
-        // Move the head to the next node in the queue
-        this.head = this.head.next;
-    
-        // Decrement the size of the queue
-        this.size--;
-    
-        // Return the value of the removed node
-        return temp.value;
-    }    
-};
+
+    // Move the head to the next node in the queue
+    this.head = this.head.next;
+
+    // Decrement the size of the queue
+    this.size--;
+
+    // Return the value of the removed node
+    return temp.value;
+  }
+}
 
 // Create a new instance of your Queue
 let queue = new Queue();
@@ -3107,5 +3102,107 @@ console.log("Dequeue operation:", queue.dequeue()); // Expect "third"
 console.log("Final queue state:");
 console.log(queue); // Expect size to be 2, head to be "fourth", tail to be "fifth"
 
+console.log("~~~~~~~~~~~~~~~~~~~~~ TREES ~~~~~~~~~~~~~~");
 
+/*
+************ TREES ************
+A datastructure that consists of nods in a parent/child relationship
 
+* A linked list is a sort of special case of a tree
+
+Big O
+Insertion: O(log(n))
+Removal: O(log(n))
+Searching: O(log(n))
+Access: O(log(n))
+
+*/
+
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  // Method to insert a new node with a specific value into the binary search tree
+  insert(value) {
+    // Create a new TreeNode with the given value
+    let newNode = new TreeNode(value);
+    // If the tree is empty (no root node), set the new node as the root
+    if (this.root === null) {
+      this.root = newNode;
+      return this; // Return the tree
+    } else {
+      let current = this.root; // Start from the root to find the correct spot
+      while (true) {
+        // If the value already exists in the tree, do not insert and return undefined
+        if (value === current.value) return undefined;
+        // If the value is less than the current node's value, go to the left
+        if (value < current.value) {
+          // If there's no left child, insert the new node here
+          if (current.left === null) {
+            current.left = newNode;
+            return this; // Return the tree after insertion
+          } else {
+            current = current.left; // Move to the left child to continue searching
+          }
+        }
+        // If the value is greater than the current node's value, go to the right
+        else if (value > current.value) {
+          // If there's no right child, insert the new node here
+          if (current.right === null) {
+            current.right = newNode;
+            return this; // Return the tree after insertion
+          } else {
+            current = current.right; // Move to the right child to continue searching
+          }
+        }
+      }
+    }
+  }
+
+  // Method to find a node with a specific value in the binary search tree
+  find(value) {
+    // If the tree is empty, return false since the value can't be found
+    if (this.root === null) return false;
+    let current = this.root; // Start searching from the root
+    let found = false; // Flag to indicate if the node was found
+
+    while (current && !found) {
+      // If the value is less than the current node's value, move left
+      if (value < current.value) {
+        current = current.left;
+      }
+      // If the value is greater than the current node's value, move right
+      else if (value > current.value) {
+        current = current.right;
+      }
+      // If the current node's value matches the search value, mark as found
+      else {
+        found = true;
+      }
+    }
+    // If the value wasn't found, return undefined
+    if (!found) return undefined;
+    // Otherwise, return the node with the matching value
+    return current;
+  }
+}
+
+let tree = new BinarySearchTree();
+tree.insert(10);
+tree.insert(5);
+tree.insert(13);
+tree.insert(11);
+tree.insert(2);
+tree.insert(16);
+tree.insert(7);
+
+console.log(tree);
