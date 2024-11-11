@@ -3003,3 +3003,109 @@ console.log(stack.pop()); // Should print null (stack is now empty)
 stack.push(40);
 console.log(stack.size); // Should print 1 (only one item, 40, in the stack)
 
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ Queue ~~~~~~~~~~~~~~");
+/*
+*************** QUEUE ***************
+Big O
+Insertion: O(1)
+Removal: O(1)
+Searching: O(N)
+Access: O(N)
+
+First In First Out (FIFO)
+Used in programming: Background tasks, uploading resources, 
+printing/task processing
+
+*/
+
+class QueueNode {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+};
+
+class Queue {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+
+    enqueue(val) {
+        // Create a new node with the given value
+        let newNode = new QueueNode(val);
+    
+        // If the queue is empty, set both head and tail to the new node
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            // Otherwise, add the new node to the end of the queue and update the tail
+            this.tail.next = newNode;
+            this.tail = newNode;
+        }
+    
+        // Increment the size of the queue and return the new size
+        return ++this.size;
+    }
+    
+    dequeue() {
+        // If the queue is empty, return null
+        if (!this.head) return null;
+    
+        // Store the current head to return its value later
+        let temp = this.head;
+    
+        // If there's only one item, set both head and tail to null
+        if (this.head === this.tail) {
+            this.tail = null;
+        }
+    
+        // Move the head to the next node in the queue
+        this.head = this.head.next;
+    
+        // Decrement the size of the queue
+        this.size--;
+    
+        // Return the value of the removed node
+        return temp.value;
+    }    
+};
+
+// Create a new instance of your Queue
+let queue = new Queue();
+
+// Enqueue some values
+queue.enqueue("first");
+queue.enqueue("second");
+queue.enqueue("third");
+
+console.log("Queue after enqueue operations:");
+console.log(queue); // Expect size to be 3, head to be "first", tail to be "third"
+
+// Dequeue a value and check the returned value
+console.log("Dequeue operation:", queue.dequeue()); // Expect "first"
+
+// Check the queue after one dequeue
+console.log("Queue after first dequeue:");
+console.log(queue); // Expect size to be 2, head to be "second", tail to still be "third"
+
+// Additional enqueues
+queue.enqueue("fourth");
+queue.enqueue("fifth");
+
+console.log("Queue after additional enqueues:");
+console.log(queue); // Expect size to be 4, head to be "second", tail to be "fifth"
+
+// Additional dequeues
+console.log("Dequeue operation:", queue.dequeue()); // Expect "second"
+console.log("Dequeue operation:", queue.dequeue()); // Expect "third"
+
+// Final state of the queue
+console.log("Final queue state:");
+console.log(queue); // Expect size to be 2, head to be "fourth", tail to be "fifth"
+
+
+
