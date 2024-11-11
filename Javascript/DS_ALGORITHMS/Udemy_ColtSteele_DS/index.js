@@ -2925,8 +2925,64 @@ class StackNode {
 class Stack {
     constructor() {
         this.head = null;
-        this.tail = nulll
+        this.tail = null;
         this.size = 0;
     }
+
+    push(val) {
+        // Create a new node with the given value
+        let newNode = new StackNode(val);
+        
+        // If the stack is empty (no head node), set both head and tail to the new node
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            // If the stack has nodes, set the new node's next to point to the current head
+            let temp = this.head;
+            this.head = newNode;
+            this.head.next = temp; // Link the new node to the previous head, placing it on top
+        }
+        
+        // Increment the size of the stack and return the new size
+        return ++this.size;
+    }
+    pop() {
+        // If the stack is empty, return null
+        if (!this.head) return null;
+        
+        // Store the current head in a temporary variable
+        let temp = this.head;
+        
+        // If there is only one node (head and tail are the same), set tail to null
+        if (this.head === this.tail) {
+            this.tail = null;
+        }
+        
+        // Move the head pointer to the next node (removing the current top)
+        this.head = this.head.next;
+        
+        // Decrease the size of the stack
+        this.size--;
+        
+        // Return the value of the removed node
+        return temp.value;
+    }
 };
+
+// Test the Stack with some data
+let stack = new Stack();
+
+// Test data
+stack.push(10); // Add 10 to the stack
+stack.push(20); // Add 20 to the stack
+stack.push(30); // Add 30 to the stack
+console.log(stack.pop()); // Should print 30
+console.log(stack.pop()); // Should print 20
+console.log(stack.pop()); // Should print 10
+console.log(stack.pop()); // Should print null (stack is now empty)
+
+// You can also check the size after each operation, if desired
+stack.push(40);
+console.log(stack.size); // Should print 1 (only one item, 40, in the stack)
 
