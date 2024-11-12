@@ -3544,4 +3544,67 @@ ER.enqueue("high fever",4)
 ER.enqueue("broken arm",2)
 ER.enqueue("glass in foot",3)
 
-console.log("~~~~~~~~~~~~~~~~~~~~~ Dijkstra Algorithm ~~~~~~~~~~~~~~");
+console.log("~~~~~~~~~~~~~~~~~~~~~ Priority Queue ~~~~~~~~~~~~~~");
+/*
+Why is it useful?
+GPS - finding fastest route
+Network routing - finds open shorted path for data
+Biology - used to model the spread of viruses among humans
+Airline tickets - finding cheapest route to your destination
+Biology - used to model the spread of viruses among humans
+and Many more!!
+
+*/
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ Weighted Graph ~~~~~~~~~~~~~~");
+
+class WeightedGraph {
+    constructor() {
+        // Initializes an empty object to hold the adjacency list of vertices.
+        // Each key in this object represents a vertex, with an array of edges.
+        this.adjacencyList = {};
+    }
+    
+    addVertex(vertex){
+        // Adds a new vertex to the graph if it does not already exist.
+        // The vertex key is initialized with an empty array to hold future edges.
+        if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+    }
+
+    addEdge(vertex1, vertex2, weight){
+        // Creates a bidirectional weighted edge between two vertices.
+        // Adds an object to vertex1's adjacency list array, linking to vertex2 with a specified weight.
+        this.adjacencyList[vertex1].push({ node: vertex2, weight });
+        
+        // Similarly, adds a link from vertex2 to vertex1 with the same weight.
+        this.adjacencyList[vertex2].push({ node: vertex1, weight });
+    }
+}
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ Simple Priority Queue ~~~~~~~~~~~~~~");
+
+class PriorityQueue {
+    constructor(){
+        // Initializes an empty array to hold elements in the queue.
+        this.values = [];
+    }
+
+    enqueue(val, priority) {
+        // Adds a new object with 'val' and 'priority' properties to the queue.
+        // Calls the sort method to ensure the queue maintains the correct priority order.
+        this.values.push({ val, priority });
+        this.sort();
+    };
+
+    dequeue() {
+        // Removes and returns the element at the beginning of the queue (the highest priority).
+        // Since 'sort' arranges priorities from low to high, the first element is the highest priority.
+        return this.values.shift();
+    };
+
+    sort() {
+        // Sorts the queue based on priority values in ascending order.
+        // Ensures that lower priority values appear first in the array.
+        this.values.sort((a, b) => a.priority - b.priority);
+    };
+};
