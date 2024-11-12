@@ -3117,8 +3117,6 @@ A datastructure that consists of nods in a parent/child relationship
 * Binary Search Trees are a more specific version of binary trees where every node to the left of a
 parent is less than its value and every node to the right is a greater.
 
-
-
 Big O
 Insertion: O(log(n))
 Removal: O(log(n))
@@ -3284,8 +3282,7 @@ class BinarySearchTree {
     // Return the array with nodes in pre-order DFS order
     return data;
   }
-
-};
+}
 
 let tree = new BinarySearchTree();
 tree.insert(10);
@@ -3299,4 +3296,28 @@ tree.DFSPreorder();
 tree.DFSPostOrder();
 console.log(tree);
 
+console.log("~~~~~~~~~~~~~~~~~~~~~ HEAPS ~~~~~~~~~~~~~~");
 
+/*
+What is a Binary Heap
+
+Very similar to a binary search tree, but with some different rules!
+
+In a MaxBinaryHeap, parent nodes are always larger than child nodes. In a MinBinaryHeap,
+parent nodes are always smaller than child nodes.
+
+*/
+
+class HeapNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class Heap {
+  constructor() {
+    this.root = null;
+  }
+}
