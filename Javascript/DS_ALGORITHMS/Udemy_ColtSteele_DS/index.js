@@ -3608,3 +3608,147 @@ class PriorityQueue {
         this.values.sort((a, b) => a.priority - b.priority);
     };
 };
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ Djikstra's Algorithm ~~~~~~~~~~~~~~");
+/*
+Key Points:
+** PriorityQueue: Helps in efficiently getting the node with the smallest distance. 
+It's implemented using an array that is sorted based on the node's priority (distance).
+
+** Graph Representation: Uses an adjacency list to represent the graph, 
+where each vertex points to a list of connected nodes with their respective edge weights.
+
+** Dijkstra's Algorithm:
+Initializes distances to infinity, except for the start node which has a distance of 0.
+Uses a priority queue to always process the node with the smallest known distance.
+Explores neighboring nodes and updates their distances if a shorter path is found.
+Traces back from the finish node to the start node to reconstruct the shortest path.
+This is a classic implementation of Dijkstra’s algorithm to find the shortest path in a weighted graph.
+
+Big O:
+
+*/
+
+// Priority Queue class to manage nodes based on their priority (distance)
+class PriorityQueue {
+    constructor(){
+      this.values = [];
+    }
+  
+    // Method to add a node to the priority queue with a given priority
+    enqueue(val, priority) {
+      this.values.push({val, priority});
+      this.sort();  // Sort the values based on priority to maintain the correct order
+    };
+  
+    // Method to remove and return the node with the highest priority (smallest value)
+    dequeue() {
+      return this.values.shift();  // Removes the first element from the queue (lowest priority)
+    };
+  
+    // Method to sort the queue by the priority (ascending order)
+    sort() {
+      this.values.sort((a, b) => a.priority - b.priority);  // Sort by priority, smallest first
+    };
+  }
+  
+  // Weighted Graph class with adjacency list to store the graph
+  class WeightedGraph {
+      constructor() {
+          this.adjacencyList = {};  // Holds the graph, where each vertex points to an array of edges
+      }
+  
+      // Method to add a vertex to the graph
+      addVertex(vertex){
+          if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];  // Create an empty array if vertex doesn't exist
+      }
+  
+      // Method to add an edge between two vertices with a given weight
+      addEdge(vertex1, vertex2, weight){
+          // Add an edge from vertex1 to vertex2 with the specified weight
+          this.adjacencyList[vertex1].push({node: vertex2, weight});
+          // Add an edge from vertex2 to vertex1 (because the graph is undirected)
+          this.adjacencyList[vertex2].push({node: vertex1, weight});
+      }
+  
+      // Dijkstra's algorithm to find the shortest path between the start and finish vertices
+      Dijkstra(start, finish){
+          const nodes = new PriorityQueue();  // Priority queue to keep track of nodes to visit
+          const distances = {};  // Holds the shortest known distance from the start to each vertex
+          const previous = {};  // Holds the previous node in the shortest path for each vertex
+          let path = [];  // Will hold the final path from start to finish
+          let smallest;  // Keeps track of the current node with the smallest distance
+  
+          // Initialize the distances and enqueue all nodes with infinity distance, except the start node
+          for(let vertex in this.adjacencyList){
+              if(vertex === start){
+                  distances[vertex] = 0;  // The distance from the start to itself is 0
+                  nodes.enqueue(vertex, 0);  // Start node is enqueued with a priority of 0
+              } else {
+                  distances[vertex] = Infinity;  // All other vertices have an infinite initial distance
+                  nodes.enqueue(vertex, Infinity);  // Enqueue all other vertices with infinite priority
+              }
+              previous[vertex] = null;  // Initially, no node has a previous node
+          }
+  
+          // Continue exploring the graph until there are no more nodes to visit
+          while(nodes.values.length){
+              smallest = nodes.dequeue().val;  // Get the node with the smallest known distance
+  
+              // If we've reached the finish node, break out of the loop
+              if(smallest === finish){
+                  // Reconstruct the path by tracing back through the previous nodes
+                  while(previous[smallest]){
+                      path.push(smallest);  // Add the current node to the path
+                      smallest = previous[smallest];  // Move to the previous node in the path
+                  }
+                  break;  // Exit the loop once the path is found
+              } 
+  
+              // If the current node has a valid distance (not infinity), explore its neighbors
+              if(smallest || distances[smallest] !== Infinity){
+                  for(let neighbor in this.adjacencyList[smallest]){
+                      // Find the neighboring node and its associated edge weight
+                      let nextNode = this.adjacencyList[smallest][neighbor];
+                      // Calculate the new potential distance to the neighbor
+                      let candidate = distances[smallest] + nextNode.weight;
+                      let nextNeighbor = nextNode.node;
+  
+                      // If the new distance is smaller than the current known distance, update it
+                      if(candidate < distances[nextNeighbor]){
+                          distances[nextNeighbor] = candidate;  // Update the distance to the neighbor
+                          previous[nextNeighbor] = smallest;  // Update the previous node for the neighbor
+                          nodes.enqueue(nextNeighbor, candidate);  // Enqueue the neighbor with the new priority (distance)
+                      }
+                  }
+              }
+          }
+  
+          // Return the reconstructed path from start to finish
+          return path.concat(smallest).reverse();  // Reverse the path to get it from start to finish
+      }
+  }
+  
+  // Example of using the graph and running Dijkstra's algorithm
+  var graph = new WeightedGraph();
+  graph.addVertex("A");
+  graph.addVertex("B");
+  graph.addVertex("C");
+  graph.addVertex("D");
+  graph.addVertex("E");
+  graph.addVertex("F");
+  
+  graph.addEdge("A", "B", 4);
+  graph.addEdge("A", "C", 2);
+  graph.addEdge("B", "E", 3);
+  graph.addEdge("C", "D", 2);
+  graph.addEdge("C", "F", 4);
+  graph.addEdge("D", "E", 3);
+  graph.addEdge("D", "F", 1);
+  graph.addEdge("E", "F", 1);
+  
+  // Running Dijkstra's algorithm to find the shortest path from A to E
+  graph.Dijkstra("A", "E");  // Expected Output: ["A", "C", "D", "F", "E"]
+  
+
+  console.log("~~~~~~~~~~~~~~~~~~~~~ Dynamic Programming ~~~~~~~~~~~~~~");
