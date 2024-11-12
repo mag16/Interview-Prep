@@ -3416,3 +3416,132 @@ heap.insert(12);
 heap.insert(55);
 
 console.log("~~~~~~~~~~~~~~~~~~~~~ Priority Queue ~~~~~~~~~~~~~~");
+/*
+This is a max-priority queue implemented with a min-heap, 
+where nodes with lower priority values are considered higher priority and bubble up to the top. 
+This enables efficient insertion and removal of high-priority nodes.
+
+Binary Heaps are very useful data structures for sorting and implementing other data structures
+like priority queues
+
+Binary Heaps are either MaxBinaryHeaps or MinBinaryHeaps with parents wither being smaller or 
+larger than their 
+children
+
+With just a little bit of math, we can represent headds using arrays!!!
+
+
+Big O Complexity:
+Insertion (enqueue): O(log n)
+Removal (dequeue): O(log n)
+Space Complexity: O(n)
+
+*/
+
+// Priority Queue Node class to store value and priority
+class PQNode {
+    constructor(val, priority) {
+        this.val = val;       // The value of the node
+        this.priority = priority; // Priority of the node (lower values indicate higher priority)
+    }
+}
+
+class PriorityQueue {
+    constructor() {
+        this.values = []; // Array to store queue elements in heap order
+    }
+
+    // Enqueue method to add an element based on priority
+    enqueue(val, priority) {
+        let newNode = new PQNode(val, priority); // Create a new node with the value and priority
+        this.values.push(newNode);               // Add node to the end of the values array
+        this.bubbleUp();                         // Ensure the heap property is maintained by bubbling up
+    }
+
+    // Bubble up method to position the recently added node at its correct position in the heap
+    bubbleUp() {
+        let idx = this.values.length - 1; // Start at the last element
+        const element = this.values[idx]; // Store the element being moved
+
+        // Continue swapping while the element has a parent and priority is less than the parent's
+        while (idx > 0) {
+            let parentIdx = Math.floor((idx - 1) / 2); // Calculate the parent index
+            let parent = this.values[parentIdx];       // Get the parent node
+
+            // If the element's priority is not less than the parent's, stop
+            if (element.priority >= parent.priority) break;
+
+            // Swap the parent and child elements
+            this.values[parentIdx] = element;
+            this.values[idx] = parent;
+
+            // Update the index to the parent's index
+            idx = parentIdx;
+        }
+    }
+
+    // Dequeue method to remove the element with the highest priority (lowest priority value)
+    dequeue() {
+        const min = this.values[0];           // The root element (highest priority element)
+        const end = this.values.pop();        // Remove the last element
+
+        // If there are still elements in the queue, set root to end and sink it down
+        if (this.values.length > 0) {
+            this.values[0] = end;
+            this.sinkDown();                  // Restore heap order from the root
+        }
+        return min;                           // Return the removed element
+    }
+
+    // Sink down method to reposition the root element if it has lower-priority children
+    sinkDown() {
+        let idx = 0;                          // Start at the root
+        const length = this.values.length;    // Length of the queue
+        const element = this.values[0];       // Element being moved
+
+        while (true) {
+            let leftChildIdx = 2 * idx + 1;   // Calculate the left child index
+            let rightChildIdx = 2 * idx + 2;  // Calculate the right child index
+            let leftChild, rightChild;
+            let swap = null;                  // Track index to swap with
+
+            // Check if the left child exists and has a higher priority than element
+            if (leftChildIdx < length) {
+                leftChild = this.values[leftChildIdx];
+                if (leftChild.priority < element.priority) {
+                    swap = leftChildIdx;
+                }
+            }
+
+            // Check if the right child exists and has a higher priority than either element or left child
+            if (rightChildIdx < length) {
+                rightChild = this.values[rightChildIdx];
+                if (
+                    (swap === null && rightChild.priority < element.priority) || 
+                    (swap !== null && rightChild.priority < leftChild.priority)
+                ) {
+                    swap = rightChildIdx;
+                }
+            }
+
+            // If no swaps are needed, exit the loop
+            if (swap === null) break;
+
+            // Swap the element with the selected child
+            this.values[idx] = this.values[swap];
+            this.values[swap] = element;
+
+            // Move index to the swapped child position
+            idx = swap;
+        }
+    }
+}
+
+let ER = new PriorityQueue();
+ER.enqueue("common cold",5)
+ER.enqueue("gunshot wound", 1)
+ER.enqueue("high fever",4)
+ER.enqueue("broken arm",2)
+ER.enqueue("glass in foot",3)
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ Dijkstra Algorithm ~~~~~~~~~~~~~~");
