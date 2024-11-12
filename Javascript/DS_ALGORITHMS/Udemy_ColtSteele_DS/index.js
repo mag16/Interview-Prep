@@ -3308,16 +3308,111 @@ parent nodes are always smaller than child nodes.
 
 */
 
-class HeapNode {
-  constructor(value) {
-    this.value = value;
-    this.left = null;
-    this.right = null;
+// Class to create a Max Binary Heap
+class MaxBinaryHeap {
+    constructor() {
+      // Initialize an empty array to store heap values
+      this.values = [];
+    }
+  
+    // Insert a new element into the heap
+    insert(element) {
+      // Add the new element to the end of the values array
+      this.values.push(element);
+      // Move the element up to its correct position to maintain the max heap property
+      this.bubbleUp();
+    }
+  
+    // Helper method to move the last element up to its correct spot
+    bubbleUp() {
+      // Start with the index of the recently added element
+      let idx = this.values.length - 1;
+      const element = this.values[idx];
+      // Loop until the element finds its correct spot
+      while (true) {
+        // Find the parent index of the current element
+        let parentIdx = Math.floor((idx - 1) / 2);
+        let parent = this.values[parentIdx];
+        // If the element is smaller than or equal to the parent, stop bubbling up
+        if (element <= parent) break;
+        // Swap the parent with the element if the element is larger
+        this.values[parentIdx] = element;
+        this.values[idx] = parent;
+        // Update the index to the parent's index for the next iteration
+        idx = parentIdx;
+      }
+    }
+  
+    // Remove the maximum element from the heap
+    remove() {
+      // The root of the heap (maximum value) is stored as max
+      const max = this.values[0];
+      // Remove the last element in the heap
+      const end = this.values.pop();
+      // Place the last element at the root position if the heap is not empty
+      if (this.values.length > 0) {
+        this.values[0] = end;
+        // Sink down the new root element to maintain the max heap property
+        this.sinkDown();
+      }
+      return max; // Return the removed maximum element
+    }
+  
+    // Helper method to move the root element down to its correct spot
+    sinkDown() {
+      // Start with the index of the root element
+      let idx = 0;
+      const length = this.values.length;
+      const element = this.values[0];
+      // Loop until the element finds its correct position
+      while (true) {
+        // Calculate the indices of the left and right child
+        let leftChildIdx = 2 * idx + 1;
+        let rightChildIdx = 2 * idx + 2;
+        let leftChild, rightChild;
+        let swap = null;
+  
+        // If there is a left child, check if it needs to swap with the element
+        if (leftChildIdx < length) {
+          leftChild = this.values[leftChildIdx];
+          if (leftChild > element) {
+            swap = leftChildIdx; // Mark left child as potential swap
+          }
+        }
+  
+        // If there is a right child, check if it should swap with the element
+        if (rightChildIdx < length) {
+          rightChild = this.values[rightChildIdx];
+          // Swap with right child if it is larger than the element
+          // and larger than the left child (if left child is already a swap candidate)
+          if (
+            (swap === null && rightChild > element) ||
+            (swap !== null && rightChild > leftChild)
+          ) {
+            swap = rightChildIdx; // Mark right child as the swap target
+          }
+        }
+  
+        // If no swaps were needed, the element is in the correct position
+        if (swap === null) break;
+  
+        // Perform the swap with the larger child
+        this.values[idx] = this.values[swap];
+        this.values[swap] = element;
+        // Update the index to the new position of the element
+        idx = swap;
+      }
+    }
   }
-}
+  
 
-class Heap {
-  constructor() {
-    this.root = null;
-  }
-}
+let heap = new MaxBinaryHeap();
+heap.insert(41);
+heap.insert(39);
+heap.insert(33);
+heap.insert(18);
+heap.insert(27);
+heap.insert(12);
+heap.insert(55);
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ Priority Queue ~~~~~~~~~~~~~~");
