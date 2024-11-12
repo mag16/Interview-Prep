@@ -3110,6 +3110,15 @@ A datastructure that consists of nods in a parent/child relationship
 
 * A linked list is a sort of special case of a tree
 
+* Trees are non linear data structuress that contain a root and child nodes.
+
+* Binary Trees can have values of any type, but at most two children for each parent.
+
+* Binary Search Trees are a more specific version of binary trees where every node to the left of a
+parent is less than its value and every node to the right is a greater.
+
+
+
 Big O
 Insertion: O(log(n))
 Removal: O(log(n))
