@@ -3206,3 +3206,7 @@ tree.insert(16);
 tree.insert(7);
 
 console.log(tree);
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ TREE TRAVESAL~~~~~~~~~~~~~~");
+
+console.log("~~~~~~~~~~~~~~~~~~~~~ BFS ~~~~~~~~~~~~~~");
