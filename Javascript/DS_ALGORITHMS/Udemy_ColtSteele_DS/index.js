@@ -3194,7 +3194,89 @@ class BinarySearchTree {
     // Otherwise, return the node with the matching value
     return current;
   }
-}
+
+  BFS() {
+    // Start at the root node
+    let node = this.root,
+      data = [], // Array to store the values in BFS order
+      queue = []; // Queue to keep track of nodes to process
+    // Add the root node to the queue
+    queue.push(node);
+
+    // Loop while there are nodes in the queue
+    while (queue.length) {
+      // Remove the first node from the queue and set it as the current node
+      node = queue.shift();
+      // Add the current node's value to the results array
+      data.push(node.value);
+
+      // If the current node has a left child, add it to the queue
+      if (node.left) queue.push(node.left);
+      // If the current node has a right child, add it to the queue
+      if (node.right) queue.push(node.right);
+    }
+    // Return the array containing the values in BFS order
+    return data;
+  }
+
+  DFSPreorder() {
+    let data = []; // Array to store nodes in DFS order
+    let current = this.root; // Start with the root node
+
+    // Inner recursive function to traverse the tree
+    function traverse(node) {
+      // Add the current node's value to the data array
+      data.push(node);
+      // If there's a left child, recursively traverse the left subtree
+      if (node.left) traverse(node.left);
+      // If there's a right child, recursively traverse the right subtree
+      if (node.right) traverse(node.right);
+    }
+
+    // Start the traversal from the root
+    traverse(current);
+
+    // Return the array with nodes in pre-order DFS order
+    return data;
+  }
+
+  DFSPostOrder() {
+    let data = []; // Array to store nodes in DFS order
+    // Inner recursive function to traverse the tree
+    function traverse(node) {
+      // If there's a left child, recursively traverse the left subtree
+      if (node.left) traverse(node.left);
+      // If there's a right child, recursively traverse the right subtree
+      if (node.right) traverse(node.right);
+      // Add the current node's value to the data array
+      data.push(node);
+    }
+
+    // Start the traversal from the root
+    traverse(this.root);
+
+    // Return the array with nodes in pre-order DFS order
+    return data;
+  }
+
+  DFSInOrder() {
+    let data = []; // Array to store nodes in DFS order
+    // Inner recursive function to traverse the tree
+    function traverse(node) {
+      // If there's a left child, recursively traverse the left subtree
+      if (node.left) traverse(node.left);
+      // Add the current node's value to the data array
+      data.push(node);
+      // If there's a right child, recursively traverse the right subtree
+      if (node.right) traverse(node.right);
+    }
+    // Start the traversal from the root
+    traverse(this.root);
+    // Return the array with nodes in pre-order DFS order
+    return data;
+  }
+
+};
 
 let tree = new BinarySearchTree();
 tree.insert(10);
@@ -3204,9 +3286,8 @@ tree.insert(11);
 tree.insert(2);
 tree.insert(16);
 tree.insert(7);
-
+tree.DFSPreorder();
+tree.DFSPostOrder();
 console.log(tree);
 
-console.log("~~~~~~~~~~~~~~~~~~~~~ TREE TRAVESAL~~~~~~~~~~~~~~");
 
-console.log("~~~~~~~~~~~~~~~~~~~~~ BFS ~~~~~~~~~~~~~~");
